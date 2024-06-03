@@ -22,7 +22,7 @@ import { AuthenticationService } from "../authentication.service";
 		if (this.authenticationService.isAuthenticated()) {
 			return true;
 		} else {
-			this.router.navigate(['/Account/Login']);
+			this.router.navigate(['/account/login']);
 			return false;
 		}
 	}

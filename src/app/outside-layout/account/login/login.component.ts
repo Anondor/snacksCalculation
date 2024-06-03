@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../../authentication/authentication.se
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { first } from 'rxjs';
 import { AccountService } from '../account.service';
+import { AlertService } from '../../../Shared/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit{
  
   constructor(
     private accountService: AccountService,
+    private alertService:AlertService,
     private router: Router) {
   
       this.loginForm = new FormGroup({
@@ -37,15 +39,26 @@ export class LoginComponent implements OnInit{
   loginUser(){
 
     const user = this.loginForm.value;
-    console.log(user)
-    this.accountService.loginUser(user).subscribe(
-      data => {
-          //this.router.navigate([this.config.initialPage]);
-      },
-      error => {
-          this.error = error;
-      });
-    }
+    this.accountService.loginUser(user).subscribe({
+			next: x => {
+
+				if (x.result) {
+					localStorage.setItem('access_token', x.result.token);
+					if (this.accountService.isNavigatingToSuperUnit()) {
+						this.router.navigate(["dashboard"]);
+					} else {
+						this.router.navigate(['/']);
+					}
+				} else {
+					this.router.navigate(['/']);
+					this.alertService.tosterDanger(x.message);
+				}
+			},
+			error: err => {
+				this.alertService.tosterDanger("Something wrong. Please try again later.");
+			}
+		});
+	}
     
 
 

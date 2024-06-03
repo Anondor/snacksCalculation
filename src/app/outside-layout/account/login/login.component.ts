@@ -9,23 +9,14 @@ import { AccountService } from '../account.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
   constructor(private accountService:AccountService)
   {
-
+    
   }
 
-  login()
+  loginUser()
   {
-    let model=
-    {
-      phone:"string",
-      password:"string"
-    }
-    this.accountService.loginUser(model).subscribe(res=>{
-      console.log(res.value);
-      
-    })
-  
+    console.log("hi user")
   }
-
 }

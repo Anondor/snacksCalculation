@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
-import { LibraryConfig } from './models/config';
 import { User } from './models/user.model';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,14 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient,
     private router: Router,
-    @Inject('config') private config: LibraryConfig) { }
-
-  login(user: User): Observable<User> {
+ 
+  ) { }
+/*
+  login(user: User) {
+    
     return this.http
       .post<User>(this.config.authEndpoint, {
-        username: user.username,
+        name: user.name,
         password: user.password
       })
       .pipe(
@@ -27,14 +29,24 @@ export class AuthenticationService {
         })
       );
   }
+  */
 
   logout(): void {
     localStorage.removeItem("musicUser");
     this.router.navigate(["/login"]);
   }
 
-  getLoggedUser(): User {
-    return JSON.parse(localStorage.getItem("musicUser"))
+	public isAuthenticated(): boolean {
+		const token = localStorage.getItem('access_token');
+		const helper = new JwtHelperService();
+		const isExpired = helper.isTokenExpired(token);
+		return !isExpired;
+	}
+  getLoggedUser() {
+    let item=localStorage.getItem("musicUser");
+    if(!!item)
+    return JSON.parse(item);
+  else return null;
   }
 
   isUserAuthenticated(): boolean {

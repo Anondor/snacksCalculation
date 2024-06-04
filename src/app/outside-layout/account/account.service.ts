@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
+import { RoleConstants } from '../../authentication/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,16 +24,12 @@ public isNavigatingToSuperUnit(): boolean {
     return false;
   }
 
-  console.log(token);
-  debugger
-
   const helper = new JwtHelperService();
   const decodedToken = helper.decodeToken(token);
 
   if (
     decodedToken &&
-    decodedToken.LoadIndividualProject == false &&
-    (decodedToken.Role === "Admin")
+    (decodedToken.typ === RoleConstants.SuperAdmin||decodedToken.typ==RoleConstants.SuperUser)
   ) {
     const isExpired = helper.isTokenExpired(token);
     return !isExpired;

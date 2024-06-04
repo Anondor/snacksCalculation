@@ -16,7 +16,7 @@ export class HomeComponent {
   }
   goToHome()
   {
-    this.router.navigate(["account/login"]);
+    this.router.navigate([""]);
   }
 
 }

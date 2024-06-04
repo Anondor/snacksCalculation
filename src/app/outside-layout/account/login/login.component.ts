@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../authentication/authentication.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { first } from 'rxjs';
 import { AccountService } from '../account.service';
 import { AlertService } from '../../../Shared/alert.service';
 
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit{
 				if (x.result) {
 					localStorage.setItem('access_token', x.result.token);
 					if (this.accountService.isNavigatingToSuperUnit()) {
-						this.router.navigate(["dashboard"]);
+						this.router.navigate(["demo/dashboard"]);
 					} else {
 						this.router.navigate(['/']);
 					}

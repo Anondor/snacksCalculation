@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from '../../authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,5 +10,18 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+  constructor(private authenticationService:AuthenticationService,private router :Router){}
+  logout()
+  {
+    this.authenticationService.logout()
+    
+      window.location.href = '/';
+    
+
+  }
+  home()
+  {
+    this.router.navigate(["demo/home"])
+  }
 
 }

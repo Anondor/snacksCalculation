@@ -40,3 +40,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+/.vs/snacksCalculation/FileContentIndex/4407636d-a33a-4956-8561-3ced386c7e5c.vsidx
+/.vs/snacksCalculation/FileContentIndex/cb9ca65d-725f-4130-8228-7f4e10ad5168.vsidx
+.vs/snacksCalculation/FileContentIndex/3b20dca1-97b6-464c-8dba-58a3a5fdd0a3.vsidx
+.vs/snacksCalculation/FileContentIndex/f58ea549-5c55-4aef-ad55-e424ce1f04ec.vsidx
+*.vsidx

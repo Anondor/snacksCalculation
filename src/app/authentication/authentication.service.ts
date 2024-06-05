@@ -15,25 +15,10 @@ export class AuthenticationService {
     private router: Router,
  
   ) { }
-/*
-  login(user: User) {
-    
-    return this.http
-      .post<User>(this.config.authEndpoint, {
-        name: user.name,
-        password: user.password
-      })
-      .pipe(
-        map(user => {
-          localStorage.setItem("musicUser", JSON.stringify(user));
-          return user;
-        })
-      );
-  }
-  */
+
 
   logout(): void {
-    localStorage.removeItem("musicUser");
+    localStorage.removeItem("access_token");
     this.router.navigate(["/login"]);
   }
 
@@ -44,13 +29,17 @@ export class AuthenticationService {
 		return !isExpired;
 	}
   getLoggedUser() {
-    let item=localStorage.getItem("musicUser");
+    let item=localStorage.getItem("access_token");
+  
+  
     if(!!item)
-    return JSON.parse(item);
+      {
+        const helper = new JwtHelperService();
+        const decodedToken = helper.decodeToken(item);
+        return decodedToken;
+      }
   else return null;
   }
 
-  isUserAuthenticated(): boolean {
-    return !!localStorage.getItem("musicUser");
-  }
+
 }

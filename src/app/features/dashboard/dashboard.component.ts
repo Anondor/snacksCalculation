@@ -23,5 +23,11 @@ export class DashboardComponent {
   {
     this.router.navigate(["demo/home"])
   }
+  getLoggedUser()
+  {
+    let user=this.authenticationService.getLoggedUser()
+    console.log(user);
+
+  }
 
 }

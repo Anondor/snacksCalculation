@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { Router } from '@angular/router';
+import { HeaderComponent } from "../header/header.component";
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+    selector: 'app-dashboard',
+    standalone: true,
+    templateUrl: './dashboard.component.html',
+    styleUrl: './dashboard.component.css',
+    imports: [HeaderComponent]
 })
 export class DashboardComponent {
   constructor(private authenticationService:AuthenticationService,private router :Router){}
@@ -21,7 +22,7 @@ export class DashboardComponent {
   }
   home()
   {
-    this.router.navigate(["demo/home"])
+    this.router.navigate(["features/home"])
   }
   getLoggedUser()
   {

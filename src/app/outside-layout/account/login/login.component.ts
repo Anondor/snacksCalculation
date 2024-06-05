@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit{
 				if (x.result) {
 					localStorage.setItem('access_token', x.result.token);
 					if (this.accountService.isNavigatingToSuperUnit()) {
-						this.router.navigate(["demo/dashboard"]);
+						this.router.navigate(["features/dashboard"]);
 					} else {
 						this.router.navigate(['/']);
 					}

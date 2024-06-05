@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthenticationService } from '../../authentication/authentication.service';
-import { Router } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,6 +12,7 @@ import { HeaderComponent } from "../header/header.component";
 })
 export class DashboardComponent {
   constructor(private authenticationService:AuthenticationService,private router :Router){}
+  user:any;
   logout()
   {
     this.authenticationService.logout()
@@ -26,8 +27,10 @@ export class DashboardComponent {
   }
   getLoggedUser()
   {
-    let user=this.authenticationService.getLoggedUser()
-    console.log(user);
+    this.user=this.authenticationService.getLoggedUser()
+
+    console.log(this.user)
+    
 
   }
 

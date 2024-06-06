@@ -1,1 +1,29 @@
-<button (click)="loginUser()">login</button>
+<!-- <button (click)="loginUser()">login</button>
+-->
+
+<div class="container" style="width: 80%; margin: auto;"> 
+    <h1 style="text-align: center;">Login Here</h1>
+    <br>
+        <form  [formGroup]="loginForm" >
+            <div class="input-group mb-3">
+                <label  class="col-sm-2 col-form-label">phone</label>
+                <div style="width: 80%;"> 
+                  <input type="text" class="form-control" formControlName="phone"/>
+                  <small *ngIf="loginForm.get('email').invalid && loginForm.get('phone').touched">*Valid phone account is a required .</small>
+                </div> 
+            </div>
+            <div class="input-group mb-3">
+                <label  class="col-sm-2 col-form-label">Password</label>
+                <div style="width: 80%;"> 
+                  <input type="password" class="form-control" formControlName="password"/>
+                  <small *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">*Enter a valid password.</small>
+
+                  </div>
+                  </div>
+
+             <button type="submit" class="btn btn-primary" style="margin-left: 30%;" (click)="loginUser()" [disabled]="this.loginForm.invalid" >Login</button>
+             <button type="submit" style="margin-left: 1%;" class="btn btn-danger" (click)="this.loginForm.reset()">Cancel</button>
+    
+        </form>
+    
+    </div>

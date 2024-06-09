@@ -7,6 +7,6 @@ export interface User {
     token?: string;
   }
   export abstract class RoleConstants {
-    static SuperAdmin = 0;
+    static  SuperAdmin = 0;
     static SuperUser = 1;
   }

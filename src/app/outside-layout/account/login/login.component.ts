@@ -26,8 +26,9 @@ export class LoginComponent implements OnInit{
     private router: Router) {
   
       this.loginForm = new FormGroup({
-        phone: new FormControl("string", Validators.required),
-        password: new FormControl("string", Validators.required)
+        phone: new FormControl(null, Validators.required),
+        password: new FormControl(null, Validators.required),
+        isAdmin:new FormControl(false,Validators.required)
   });
 }
 
@@ -41,6 +42,7 @@ export class LoginComponent implements OnInit{
 				if (x.result) {
 					localStorage.setItem('access_token', x.result.token);
 					if (this.accountService.isNavigatingToSuperUnit()) {
+           
 						this.router.navigate(["features/dashboard"]);
 					} else {
 						this.router.navigate(['/']);

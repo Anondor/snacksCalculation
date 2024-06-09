@@ -40,6 +40,14 @@ export class AuthenticationService {
       }
   else return null;
   }
+  addUser(model:any)
+  {
+    return this.http.post<any>('https://localhost:7206/api/User', model);
+  }
+  getAllUser()
+  {
+    return this.http.get<any>('https://localhost:7206/api/User/UserList');
+  }
 
 
 }

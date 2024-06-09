@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { tokenGetter } from '../../app.config';
+import { AuthenticationService } from '../../authentication/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor(private router:Router)
+  constructor(private router:Router, private authenticationService:AuthenticationService,)
   {
 
   }
@@ -22,6 +24,18 @@ export class HeaderComponent {
   goToHome()
   {
     this.router.navigate(["features/admin"]);
+  }
+  addNewUser()
+  {
+    this.router.navigate(["features/add-new-user"])
+  }
+  logout()
+  {
+    this.authenticationService.logout()
+    
+      window.location.href = '/';
+    
+
   }
   
 }

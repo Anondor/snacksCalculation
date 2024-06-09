@@ -21,7 +21,7 @@ export class HeaderComponent {
   }
   goToHome()
   {
-    this.router.navigate(["admin/home"]);
+    this.router.navigate(["features/admin"]);
   }
-
+  
 }

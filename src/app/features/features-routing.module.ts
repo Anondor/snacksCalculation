@@ -7,12 +7,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { RoleConstants } from '../authentication/models/user.model';
 
 const routes: Routes = [
+  
   //{path:"home",canActivate: [AuthenticationGuard], component:HomeComponent},
+
   {path:"dashboard",canActivate: [AuthenticationGuard],component:DashboardComponent},
   {
-    path: 'admin',
-    component: HomeComponent,
-    canActivate: [AuthenticationGuard],
+    path: 'admin',component: HomeComponent,canActivate: [AuthenticationGuard],
     data: { roles: [RoleConstants.SuperAdmin] }
 },
 ];

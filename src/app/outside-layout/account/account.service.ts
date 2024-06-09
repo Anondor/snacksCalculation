@@ -38,8 +38,7 @@ export class AccountService {
     const decodedToken = helper.decodeToken(token);
     if (
       decodedToken &&
-      (decodedToken.typ === RoleConstants.SuperAdmin.toString() || decodedToken.typ == RoleConstants.SuperUser.toString())) 
-      {
+      (decodedToken.typ === RoleConstants.SuperAdmin.toString() || decodedToken.typ == RoleConstants.SuperUser.toString())) {
       const isExpired = helper.isTokenExpired(token);
       return !isExpired;
     }

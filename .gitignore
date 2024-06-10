@@ -40,12 +40,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-.vs/snacksCalculation/FileContentIndex/dd076ae2-6430-451f-ad88-947a75224795.vsidx
-.vs/snacksCalculation/FileContentIndex/981a075d-afe2-48f1-b7e9-7c4078962297.vsidx
-.vs/snacksCalculation/FileContentIndex/56d4a974-0354-4fee-b160-e4e152299667.vsidx
-.vs/snacksCalculation/FileContentIndex/2ae00fa3-9b18-4c4f-a6ac-3a323bad56f8.vsidx
-.vs/snacksCalculation/FileContentIndex/a53dd488-dc77-48ec-9c2b-4c96df1cd483.vsidx
-.vs/snacksCalculation/FileContentIndex/75fc7c13-384e-4691-b97d-e7fbe2726729.vsidx
-.vs/snacksCalculation/FileContentIndex/18427100-4d33-45f2-9fdb-fdff931d9fbc.vsidx
-.vs/snacksCalculation/config/applicationhost.config
-.vs/snacksCalculation/v17/DocumentLayout.json
+/.vs/snacksCalculation/FileContentIndex/4407636d-a33a-4956-8561-3ced386c7e5c.vsidx
+/.vs/snacksCalculation/FileContentIndex/cb9ca65d-725f-4130-8228-7f4e10ad5168.vsidx
+.vs/snacksCalculation/FileContentIndex/3b20dca1-97b6-464c-8dba-58a3a5fdd0a3.vsidx
+.vs/snacksCalculation/FileContentIndex/f58ea549-5c55-4aef-ad55-e424ce1f04ec.vsidx
+*.vsidx

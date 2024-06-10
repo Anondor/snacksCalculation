@@ -1,26 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../authentication/authentication.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { first } from 'rxjs';
 import { AccountService } from '../account.service';
 import { AlertService } from '../../../Shared/alert.service';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [ ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit{
-  loginForm!: FormGroup;
+  loginForm: FormGroup;
   error: string = "";
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      phone: new FormControl("string", Validators.required),
-      password: new FormControl("string", Validators.required)
-});
+
   }
 
  
@@ -30,8 +26,9 @@ export class LoginComponent implements OnInit{
     private router: Router) {
   
       this.loginForm = new FormGroup({
-        phone: new FormControl("string", Validators.required),
-        password: new FormControl("string", Validators.required)
+        phone: new FormControl(null, Validators.required),
+        password: new FormControl(null, Validators.required),
+        isAdmin:new FormControl(false,Validators.required)
   });
 }
 
@@ -45,7 +42,8 @@ export class LoginComponent implements OnInit{
 				if (x.result) {
 					localStorage.setItem('access_token', x.result.token);
 					if (this.accountService.isNavigatingToSuperUnit()) {
-						this.router.navigate(["dashboard"]);
+           
+						this.router.navigate(["features/dashboard"]);
 					} else {
 						this.router.navigate(['/']);
 					}

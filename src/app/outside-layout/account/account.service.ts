@@ -23,9 +23,6 @@ public isNavigatingToSuperUnit(): boolean {
     return false;
   }
 
-  console.log(token);
-  debugger
-
   const helper = new JwtHelperService();
   const decodedToken = helper.decodeToken(token);
 

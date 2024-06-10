@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit{
   
       this.loginForm = new FormGroup({
         phone: new FormControl(null, Validators.required),
-        password: new FormControl(null, Validators.required),
-        isAdmin:new FormControl(false,Validators.required)
+        password: new FormControl(null, Validators.required)
+
   });
 }
 

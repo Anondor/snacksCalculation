@@ -14,7 +14,7 @@ export class NewUserComponent {
   signupForm:FormGroup ;
    constructor(private router:Router,private authenticationService:AuthenticationService){ 
     this.signupForm = new FormGroup({
-      id:new FormControl(),
+      //id:new FormControl(),
       name:new FormControl(null,Validators.required),
       email:new FormControl(null,[Validators.required,Validators.email]),
       phone:new FormControl(null,[Validators.required]),

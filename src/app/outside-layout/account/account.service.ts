@@ -13,18 +13,7 @@ export class AccountService {
 
   }
   loginUser(model: any): Observable<any> {
-    let modelvalue =
-    {
-      phone: model.phone,
-      password: model.password
-    }
-    if (model.isAdmin == true) {
-      return this.http.post<any>('https://localhost:7206/api/Login/LoginAdmin', modelvalue);
-    }
-    else {
-
-      return this.http.post<any>('https://localhost:7206/api/Login/LoginUser', modelvalue);
-    }
+      return this.http.post<any>('https://localhost:7206/api/Login/LoginUser', model);
 
   }
 

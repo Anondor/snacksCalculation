@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" >Snack's Claculation</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,45 +15,60 @@
     </div>
   </div>
 </nav>
+-->
 
 <div class="container-fluid">
-  <div class="row flex-nowrap">
+  <div class="row">
       
-    <div class="bg-dark col-auto col-md-2 min-vh-100">
+    <div class="d-flex flex-column justify-content-between col-auto bg-dark min-vh-100">
         <div class="bg-dark p-2">
-            <a class="d-flex text-decoration-none mt-1 align-items-center text-white">
-                <span class="fs-4 d-none d-sm-inline">SideMenu
+            <a class="text-white d-none d-sm-inline
+              text-decoration-none d-flex  align-items-center ">
+                <span class="fs-5">SideMenu
                 </span>
-                <hr class="text-white"/>
+                
             </a>
+            <hr class="text-white d-none d-sm-block"/>
             <ul class="nav nav-pills flex-column mt-2 mt-sm-0" id="menu">
-              <!--  <li class="nav-item ">
-                    <a (click)="goToDashboard()"class="nav-link text-white"  
-                    aria-current="page" >
-                        <i class="fa fa-gauge"></i>
-                        <span class="fs-4 ms-3 d-none d-sm-inline"> Dashboard</span>
-                        </a>
+                <li class="nav-item ">
+                  <a (click)="goToDashboard()"class="nav-link text-white"  
+                    aria-current="page">
+                      <i class="fa fa-table" > </i>
+                      <span class=" ms-2 d-none d-sm-inline"> Dashboard</span>
+                      </a>
 
-                </li>--> 
+              </li>
 
                 <li class="nav-item ">
-                    <a (click)="goToHome()"class="nav-link text-white" >
-                        <i class="fs-5 fa fa-home" > </i>
-                        <span class="fs-4 ms-3 d-none d-sm-inline"> Home</span>
+                    <a (click)="goToHome()"class="nav-link text-white"  
+                      aria-current="page">
+                        <i class="fa fa-home" > </i>
+                        <span class=" ms-2 d-none d-sm-inline"> Home</span>
                         </a>
 
                 </li>
                 <li class="nav-item ">
                     <a (click)="addNewUser()"class="nav-link text-white" >
-                        <i class="fs-5 fa fa-users" > </i>
-                        <span class="fs-4 ms-3 d-none d-sm-inline"> Add User</span>
+                        <i class=" fa fa-users"    aria-current="page"> </i>
+                        <span class=" ms-3 d-none d-sm-inline"> Add User</span>
                         </a>
 
                 </li>
             </ul>
 
         </div>
-
+        <div>
+          <div class="dropdown open">
+            <a class="btn border-none outline-none text-white dropdown-toggle" type="button" id="triggerId" 
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <li class="fa fa-user"></li><span class="ms-1">Admin</span>
+            </a>
+             <div class="dropdown-menu" aria-labelledby="triggerId">
+            <a (click)="logout()" class="dropdown-item" >Logout</a>
+            <a href="#" class="dropdown-item" >Setting</a>
+          </div>
+          </div>
+        </div>
     </div>
   </div>
 </div>

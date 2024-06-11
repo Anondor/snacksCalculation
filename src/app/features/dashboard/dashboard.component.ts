@@ -15,11 +15,11 @@ export class DashboardComponent implements OnInit{
   user:any;
   constructor(private authenticationService:AuthenticationService,private router :Router){}
   ngOnInit(): void {
+    this.authenticationService.getLoggedUser();
     this.authenticationService.getAllUser().subscribe(res=>{
       this.userList=res.result;
-      console.log(this.userList)
+    
 
-      console.log(res);
     })
     
   }
@@ -37,6 +37,7 @@ export class DashboardComponent implements OnInit{
   }
   getLoggedUser()
   {
+  
     this.user=this.authenticationService.getLoggedUser()
 
     

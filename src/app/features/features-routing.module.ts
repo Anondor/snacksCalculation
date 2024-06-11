@@ -10,6 +10,7 @@ import { NewUserComponent } from './new-user/new-user.component';
 const routes: Routes = [
   
   {path:"dashboard",canActivate: [AuthenticationGuard],component:DashboardComponent},
+  {path:"layout",component:DashboardComponent},
   {
     path: 'admin',component: HomeComponent,canActivate: [AuthenticationGuard],
     data: { roles: [RoleConstants.SuperAdmin] }

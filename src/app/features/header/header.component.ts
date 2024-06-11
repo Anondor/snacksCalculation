@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { tokenGetter } from '../../app.config';
 import { AuthenticationService } from '../../authentication/authentication.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

@@ -35,12 +35,6 @@ export class DashboardComponent implements OnInit{
   {
     this.router.navigate(["features/admin"])
   }
-  getLoggedUser()
-  {
-    this.user=this.authenticationService.getLoggedUser()
 
-    
-
-  }
 
 }

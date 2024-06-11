@@ -40,5 +40,5 @@ export class DashboardComponent implements OnInit{
   
     this.user=this.authenticationService.getLoggedUser()
 
-
+  }
 }

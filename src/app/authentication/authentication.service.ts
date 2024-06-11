@@ -46,7 +46,7 @@ export class AuthenticationService {
   }
   getAllUser()
   {
-    debugger
+    
     return this.http.get<any>('https://localhost:7206/api/User/UserList');
   }
 

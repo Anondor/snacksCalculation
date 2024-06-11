@@ -37,5 +37,9 @@ export class NewUserComponent {
      })
  
    }
+   
+  onReset(): void {
+    this.signupForm.reset();
+  }
 
 }

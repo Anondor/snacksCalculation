@@ -1,3 +1,5 @@
+
+<!--
 <div class="container" style="width: 80%; margin: auto;"> 
     <form  [formGroup]="signupForm" >
     <h1 style="text-align: center;">Signup Here</h1>  <br>
@@ -36,4 +38,72 @@
             <button type="submit" style="margin-left: 40%;"(click)="signupdata()" class="btn btn-primary" [disabled]="this.signupForm.invalid">SignUp</button>
 
 </form>
+</div>
+-->
+<h3>Add a new user</h3>
+<div class="register-form">
+  <form [formGroup]="signupForm" (ngSubmit)="signupdata()">
+    <div class="form-group">
+      <label>Name</label>
+      <input
+        type="text"
+        formControlName="name"
+        class="form-control"
+      />
+
+    </div>
+
+    <div class="form-group">
+      <label>email</label>
+      <input
+        type="email"
+        formControlName="email"
+        class="form-control"
+      />
+
+    </div>
+
+    <div class="form-group">
+      <label>Phone</label>
+      <input
+        type="text"
+        formControlName="phone"
+        class="form-control"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>User Type</label>
+      <input
+        type="text"
+        formControlName="userType"
+        class="form-control"
+      />
+  
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input
+        type="password"
+        formControlName="password"
+        class="form-control"
+      />
+  
+    </div>
+
+
+
+
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Register</button>
+      <button
+        type="button"
+        (click)="onReset()"
+        class="btn btn-warning float-right"
+      >
+        Reset
+      </button>
+    </div>
+  </form>
 </div>

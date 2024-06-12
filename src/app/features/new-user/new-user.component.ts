@@ -12,6 +12,11 @@ import { AuthenticationService } from '../../authentication/authentication.servi
 })
 export class NewUserComponent {
   signupForm:FormGroup ;
+  userTypeData:any=[
+    {id:1, type:"Admin"},
+    { id:2, type:"User"}
+
+  ]
    constructor(private router:Router,private authenticationService:AuthenticationService){ 
     this.signupForm = new FormGroup({
       //id:new FormControl(),
@@ -19,7 +24,7 @@ export class NewUserComponent {
       email:new FormControl(null,[Validators.required,Validators.email]),
       phone:new FormControl(null,[Validators.required]),
       password:new FormControl(null,Validators.required),
-      isAdmin:new FormControl()
+      userType:new FormControl()
 
     }); 
     
@@ -37,7 +42,7 @@ export class NewUserComponent {
      })
  
    }
-   
+  
   onReset(): void {
     this.signupForm.reset();
   }

@@ -74,11 +74,12 @@
 
     <div class="form-group">
       <label>User Type</label>
-      <input
-        type="text"
-        formControlName="userType"
-        class="form-control"
-      />
+   
+    <select  class="form-select" aria-label="Default select example" formControlName="userType">
+      @for (item of userTypeData; track item.id) {
+        <option value="{{ item.id }}">{{ item.type }}</option>
+      }
+    </select> 
   
     </div>
     <div class="form-group">

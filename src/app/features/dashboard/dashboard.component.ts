@@ -13,15 +13,35 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit{
   userList:any=[]
   user:any;
-  constructor(private authenticationService:AuthenticationService,private router :Router){}
+  todaysDate:string=''
+  firstDayOfMonth:string='';
+  constructor(private authenticationService:AuthenticationService,private router :Router){
+ 
+
+
+  }
+ 
   ngOnInit(): void {
+    this.getTodaysDate();
     this.authenticationService.getLoggedUser();
     this.authenticationService.getAllUser().subscribe(res=>{
       this.userList=res.result;
-    
 
     })
+
+  
     
+  }
+  getTodaysDate()
+  {
+    let day=new Date().getDate().toString()
+    let month=new Date().getMonth().toString()
+    let year=new Date().getFullYear().toString();
+    if(day.length==1)day='0'+day;
+    if(month.length==1)month='0'+month;
+    this.todaysDate=year.toString()+'-'+month.toString()+'-'+day.toString()
+    this.firstDayOfMonth=year.toString()+'-'+month.toString()+'-'+'01';
+    console.log(this.todaysDate,this.firstDayOfMonth)
   }
   logout()
   {

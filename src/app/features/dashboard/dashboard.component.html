@@ -7,33 +7,24 @@
 }
 </thead>
 <tbody>
-    <tr class="">
-        <td>
-            2024-06-13
-        </td>
-     @for (item of userList; track item.id) {
-         <td scope="col"> {{ item.name }}</td>   
-     }
-     </tr>
-     <tr class="">
-        <td>
-            2024-06-13
-        </td>
-     @for (item of userList; track item.id) {
-         <td scope="col"> {{ item.name }}</td>   
-     }
-     </tr>
-    <tr class="">
-    <td>
-        2024-06-13
-    </td>
-        @for (item of userList; track item.id) {
-          <td>
-            <input>
-          </td>
-        }
+    
+     @for (item of dateList; track item.id) {
+        <tr class="">
+            <td scope="col"> {{ item }}</td> 
+            @for(user of userList; track user.id ) 
+            {
+                <td>
+                    <input>
+                </td>
+                
+            }
+        </tr>
 
-    </tr>
+          
+     }
+    
+ 
+
     </tbody>
    </table>
 

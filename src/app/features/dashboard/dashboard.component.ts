@@ -27,7 +27,8 @@ export class DashboardComponent implements OnInit{
   {
     this.authenticationService.logout()
     
-      window.location.href = '/';
+     // window.location.href = '/';
+     this.router.navigate([""]);
     
 
   }

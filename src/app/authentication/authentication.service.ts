@@ -42,12 +42,16 @@ export class AuthenticationService {
   }
   addUser(model:any)
   {
-    return this.http.post<any>('https://localhost:7206/api/User', model);
+    return this.http.post<any>(`https://localhost:7206/api/User`, model);
   }
   getAllUser()
   {
     
-    return this.http.get<any>('https://localhost:7206/api/User/UserList');
+    return this.http.get<any>(`https://localhost:7206/api/User/UserList`);
+  }
+  getMonthlyCost(fromDate:string,toDate:string)
+  {
+    return this.http.get<any>(`https://localhost:7206/api/User/getMonthlyCost?fromDate=${fromDate}&toDate=${toDate}`);
   }
 
 

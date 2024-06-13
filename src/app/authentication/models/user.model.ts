@@ -10,3 +10,9 @@ export interface User {
     static  SuperAdmin = "0";
     static SuperUser = "1";
   }
+
+  export class FormTexts {
+    maptest: { [key: string]: { [key: string]: string } } = {};
+
+  }
+  

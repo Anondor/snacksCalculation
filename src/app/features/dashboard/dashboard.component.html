@@ -1,32 +1,40 @@
-
-   <table class="table table-striped table-hover">
-    <thead> 
-        <th scope="col"> Date</th>
-    @for (item of userList; track item.id) {
-        <th scope="col"> {{ item.name }}</th>     
-}
-</thead>
-<tbody>
+<div>
+    <table class="table table-striped table-hover">
+        <thead> 
+            <th scope="col"> Date</th>
+        @for (item of userList; track item.id) {
+            <th scope="col"> {{ item.name }}</th>     
+    }
+    </thead>
+    <tbody>
+        
+         @for (item of dateList; track item.id) {
+            <tr class="">
+                <td scope="col"> {{ item }}</td> 
+                @for(user of userList; track user.id ) 
+                {
+                    <td >
+                       
+                            <input id="{{user.id}}" [(ngModel)]="maptest[item][user.id]" (blur)="onBlurEvent($event, item)" placeholder="0" style="text-align: center;">
     
-     @for (item of dateList; track item.id) {
-        <tr class="">
-            <td scope="col"> {{ item }}</td> 
-            @for(user of userList; track user.id ) 
-            {
-                <td>
-                    <input>
-                </td>
-                
-            }
-        </tr>
-
-          
-     }
+                       
     
- 
-
-    </tbody>
-   </table>
+                    </td>
+                    
+                }
+            </tr>
+    
+              
+         }
+        
+     
+    
+        </tbody>
+       </table>
+    
+       <button class="btn btn-primary">Save</button>
+</div>
+  
 
 
 

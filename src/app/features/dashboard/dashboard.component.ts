@@ -3,13 +3,14 @@ import { AuthenticationService } from '../../authentication/authentication.servi
 import { HeaderComponent } from "../header/header.component";
 import { Router } from '@angular/router';
 import { FormTexts } from '../../authentication/models/user.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
-  imports: [HeaderComponent]
+  imports: [HeaderComponent,FormsModule]
 })
 export class DashboardComponent implements OnInit {
   userList: any = []
@@ -18,30 +19,38 @@ export class DashboardComponent implements OnInit {
   firstDayOfMonth: string = '';
   dateList: any = [];
   maptest: { [key: string]: { [key: string]: string } } = {};
-
-
+  mapsetValueChaneList: { [key: string]: { [key: string]: string } } = {};
   monthlyUserData: any
+
   constructor(private authenticationService: AuthenticationService, private router: Router) {
+this.getDateList();
+this.getMonthlyUserData();
 
-
-
-  }
+  } 
 
   ngOnInit(): void {
-    this.getAllUserList()
-    this.getDateList();
-    this.getMonthlyUserData();
+    this.getAllUserList() 
     this.authenticationService.getLoggedUser();
    
-
   }
   getAllUserList()
   {
     this.authenticationService.getAllUser().subscribe(res => {
       this.userList = res.result;
-      //this.setValue(this.userList.Date, this.userList.UserId, this.userList);
-
     })
+  }
+  onBlurEvent(event: FocusEvent, date:string): void {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value;
+    const userId = inputElement.id;
+    if(!this.mapsetValueChaneList[date]){
+      this.mapsetValueChaneList[date] = {};
+    }
+    this.mapsetValueChaneList[date][userId]=inputValue;
+
+    console.log(this.mapsetValueChaneList)
+    
+    
   }
   getDateList() {
     let day = new Date().getDate()
@@ -55,31 +64,29 @@ export class DashboardComponent implements OnInit {
       }
       let date = year + '-' + month + '-' + datevalue;
       this.dateList.push(date)
+      if (!this.maptest[date]) {
+        this.maptest[date] = {};
+      }
 
     }
-
-    console.log(this.dateList);
 
   }
   getMonthlyUserData() {
     this.authenticationService.getMonthlyCost(this.dateList[0], this.dateList[this.dateList.length-1]).subscribe(res => {
       this.monthlyUserData = res.result;
-     
       this.monthlyUserData.forEach((element: any) => {
-        this.setValue(element.Date, element.UserId, element);
+        this.setValue(element.date, element.userId.toString(), element.amount.toString());
         
       });
 
-      //console.log()
     })
   }
-  setValue(firstDayOfMonth: string, key: string, value: any): void {
+  setValue(firstDayOfMonth: string, key: string, value: string): void {
     if (!this.maptest[firstDayOfMonth]) {
       this.maptest[firstDayOfMonth] = {};
     }
-    this.maptest[firstDayOfMonth][key] = value;
-    //console.log(this.maptest["1"][key])
-  }
+    this.maptest[firstDayOfMonth][key] = value.toString();
+    }
   logout() {
     this.authenticationService.logout()
 

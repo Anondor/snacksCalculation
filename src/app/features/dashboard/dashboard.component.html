@@ -5,6 +5,7 @@
         @for (item of userList; track item.id) {
             <th scope="col"> {{ item.name }}</th>     
     }
+    <th scope="col"> Item</th>
     </thead>
     <tbody>
         
@@ -13,15 +14,13 @@
                 <td scope="col"> {{ item }}</td> 
                 @for(user of userList; track user.id ) 
                 {
-                    <td >
-                       
+                    <td scope="col">
                             <input id="{{user.id}}" [(ngModel)]="maptest[item][user.id]" (blur)="onBlurEvent($event, item)" placeholder="0" style="text-align: center;">
-    
-                       
-    
                     </td>
                     
                 }
+                <td scope="col"><input  [(ngModel)]="mapItemList[item]" (blur)="onBlurItemEvent($event, item)" placeholder="Enter Items" style="text-align: center;">
+                </td>
             </tr>
     
               

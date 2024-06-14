@@ -19,6 +19,9 @@ export class DashboardComponent implements OnInit {
   firstDayOfMonth: string = '';
   dateList: any = [];
   maptest: { [key: string]: { [key: string]: string } } = {};
+  mapItemList:{[key:string]:string}={}
+  changeItemList:any=[];
+  mapChangeItemList:{[key:string]:string}={}
   mapsetValueChaneList: { [key: string]: { [key: string]: string } } = {};
   monthlyUserData: any
 
@@ -38,6 +41,32 @@ this.getMonthlyUserData();
     this.authenticationService.getAllUser().subscribe(res => {
       this.userList = res.result;
     })
+    
+  }
+  onBlurItemEvent(event: FocusEvent, dateValue:string): void {
+    const inputElement = event.target as HTMLInputElement;
+    const inputValue = inputElement.value;
+    this.mapItemList[dateValue]=inputValue;
+    //this.mapChangeItemList[date]=inputValue
+    let model={
+      date:dateValue,
+      item:inputValue
+    }
+    let index=this.changeItemList.findIndex((item: { date: string; }) => item.date ===model.date );
+    console.log(index)
+    if(index!=-1)
+      {
+        this.changeItemList[index]=model;
+      }
+      else{
+        this.changeItemList.push(model);
+      }
+    console.log(this.changeItemList);
+    //console.log(this.mapChangeItemList)
+
+
+
+    
   }
   onBlurEvent(event: FocusEvent, date:string): void {
     const inputElement = event.target as HTMLInputElement;
@@ -48,8 +77,8 @@ this.getMonthlyUserData();
     }
     this.mapsetValueChaneList[date][userId]=inputValue;
 
-    console.log(this.mapsetValueChaneList)
-    
+    //console.log(this.mapsetValueChaneList)
+
     
   }
   getDateList() {
@@ -76,6 +105,8 @@ this.getMonthlyUserData();
       this.monthlyUserData = res.result;
       this.monthlyUserData.forEach((element: any) => {
         this.setValue(element.date, element.userId.toString(), element.amount.toString());
+        this.mapItemList[element.date]=element.item;
+        
         
       });
 

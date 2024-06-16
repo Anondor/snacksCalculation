@@ -15,4 +15,13 @@ export interface User {
     maptest: { [key: string]: { [key: string]: string } } = {};
 
   }
+
+  export interface UserCostInfoModel
+  {
+    id:number,
+    userId:number,
+    date:string,
+    amound?:number,
+    item?:string
+  }
   

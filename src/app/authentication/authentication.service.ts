@@ -44,6 +44,10 @@ export class AuthenticationService {
   {
     return this.http.post<any>(`https://localhost:7206/api/User`, model);
   }
+  addUserCost(model:any)
+  {
+    return this.http.post<any>(`https://localhost:7206/api/User/addCost`, model);
+  }
   getAllUser()
   {
     

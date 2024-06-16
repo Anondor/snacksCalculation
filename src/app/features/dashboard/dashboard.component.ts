@@ -174,6 +174,11 @@ export class DashboardComponent implements OnInit {
     });
 
     console.log(this.userCostInfoList)
+
+
+    this.authenticationService.addUserCost(this.userCostInfoList).subscribe(res=>{
+
+    })
     /*
     this.changeCostList.forEach((element: any) => {
       let model: any = element;

@@ -60,7 +60,6 @@ export class DashboardComponent implements OnInit {
     else {
       this.changeItemList.push(model);
     }
-    console.log(this.changeItemList);
 
 
 
@@ -77,16 +76,17 @@ export class DashboardComponent implements OnInit {
 
     let model = {
       date: dateValue,
-      id: userId,
+      userId: userId,
       amount: inputValue
     }
-    let index = this.changeCostList.findIndex((item: { date: string, id: string }) => item.date === model.date && item.id == model.id);
+    let index = this.changeCostList.findIndex((item: { date: string, id: string }) => item.date === model.date && item.id == model.userId);
     if (index != -1) {
       this.changeCostList[index] = model;
     }
     else {
       this.changeCostList.push(model);
     }
+
 
 
   }
@@ -112,6 +112,7 @@ export class DashboardComponent implements OnInit {
   getMonthlyUserData() {
     this.authenticationService.getMonthlyCost(this.dateList[0], this.dateList[this.dateList.length - 1]).subscribe(res => {
       this.monthlyUserData = res.result;
+
       this.monthlyUserData.forEach((element: any) => {
         this.setValue(element.date, element.userId.toString(), element.amount.toString());
         this.mapItemList[element.date] = element.item;
@@ -120,6 +121,9 @@ export class DashboardComponent implements OnInit {
       });
 
     })
+
+    console.log("item",this.mapItemList)
+
   }
   setValue(firstDayOfMonth: string, key: string, value: string): void {
     if (!this.maptest[firstDayOfMonth]) {
@@ -135,21 +139,63 @@ export class DashboardComponent implements OnInit {
   }
   saveData() {
     this.userCostInfoList = [];
-    this.changeCostList.forEach((element: any) => {
+    this.changeItemList.forEach((element1:any)=> {
+      this.monthlyUserData.forEach((element2:any)=> {
+        if(element1.date==element2.date)
+          {
+            let model=element2;
+            model.item=element1.item;
+            this.userCostInfoList.push(model)
+          }
+      });    
+    });
 
+    this.changeCostList.forEach((element:any)=> {
+      let model=element;
+  
+      let index=this.userCostInfoList.findIndex((item1: { date: string, userId: number }) => item1.date === element.date && item1.userId == parseFloat(element.userId))
+      if(index!=-1)
+        {
+          this.userCostInfoList[index].amount=parseFloat(element.amount)
+        }
+        else{
+          let itemName=this.mapItemList[element.date];
+          model.item="";
+          if(!!itemName)
+            {
+              model.item=itemName              
+            }
+      
+    this.userCostInfoList.push(model);
+          
+
+        }
+      
+    });
+
+    console.log(this.userCostInfoList)
+    /*
+    this.changeCostList.forEach((element: any) => {
       let model: any = element;
       let index = this.changeItemList.findIndex((item1: { date: string }) => item1.date === element.date);
       if (index != -1) {
         model.item = this.changeItemList[index].item;
       }
       else {
-        let index = this.monthlyUserData.findIndex((item1: { date: string, id: string }) => item1.date === element.date && item1.id == element.id);
+        if(!!this.mapItemList[element.date])
+          {
+              model.item=this.mapItemList[element.date]
+          }
+        let index = this.monthlyUserData.findIndex((item1: { date: string, userId: string }) => item1.date === element.date && item1.userId == element.id);
         if (index != -1)
           model.item = this.monthlyUserData[index].item;
+
         else {
           model.item = "";
         }
       }
+      model.amount=parseFloat(model.amount)
+      model.userId=parseFloat(model.userId)
       this.userCostInfoList.push(model)
     });
 
@@ -163,6 +209,7 @@ export class DashboardComponent implements OnInit {
           if (element.date == element2.date) {
             model = element2;
             model.item = element.item;
+            model.amount=parseFloat(model.amount);
             this.userCostInfoList.push(model)
 
           }
@@ -172,7 +219,7 @@ export class DashboardComponent implements OnInit {
     });
 
 
-
+*/
 
 
     console.log(this.userCostInfoList);

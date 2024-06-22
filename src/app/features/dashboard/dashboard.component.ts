@@ -19,7 +19,9 @@ export class DashboardComponent implements OnInit {
   firstDayOfMonth: string = '';
   dateList: any = [];
   maptest: { [key: string]: { [key: string]: string } } = {};
+
   mapItemList: { [key: string]: string } = {}
+  mapUserAmountList: { [key: number]: number } = {}
   changeItemList: any = [];
   changeCostList: any = [];
 
@@ -27,10 +29,14 @@ export class DashboardComponent implements OnInit {
 
   mapsetValueChaneList: { [key: string]: { [key: string]: string } } = {};
   monthlyUserData: any
+  userTotalAmount: any = [];
+  userTotalCost: any = [];
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
+    this.getUserAmount();
     this.getDateList();
     this.getMonthlyUserData();
+
 
   }
 
@@ -38,8 +44,13 @@ export class DashboardComponent implements OnInit {
     this.getAllUserList()
     this.authenticationService.getLoggedUser();
 
+
+
+
   }
   getAllUserList() {
+    console.log(this.userTotalAmount);
+    console.log(this.userTotalCost)
     this.authenticationService.getAllUser().subscribe(res => {
       this.userList = res.result;
     })
@@ -62,6 +73,25 @@ export class DashboardComponent implements OnInit {
     }
 
 
+
+
+  }
+  getUserAmount() {
+    this.authenticationService.getUserAmount().subscribe(res => {
+      this.userTotalAmount = res.result;
+      this.userTotalAmount.forEach((element:any) => {
+        this.mapUserAmountList[element.userId]=element.totalAmount;
+        
+      });
+      this.authenticationService.getUserCost().subscribe(res => {
+        this.userTotalCost = res.result;
+        this.userTotalCost.forEach((element:any) => {
+          this.mapUserAmountList[element.userId]-=element.totalAmount;
+          
+        });
+
+      })
+    })
 
 
   }
@@ -122,7 +152,6 @@ export class DashboardComponent implements OnInit {
 
     })
 
-    console.log("item",this.mapItemList)
 
   }
   setValue(firstDayOfMonth: string, key: string, value: string): void {
@@ -139,95 +168,46 @@ export class DashboardComponent implements OnInit {
   }
   saveData() {
     this.userCostInfoList = [];
-    this.changeItemList.forEach((element1:any)=> {
-      this.monthlyUserData.forEach((element2:any)=> {
-        if(element1.date==element2.date)
-          {
-            let model=element2;
-            model.item=element1.item;
-            this.userCostInfoList.push(model)
-          }
-      });    
+    this.changeItemList.forEach((element1: any) => {
+      this.monthlyUserData.forEach((element2: any) => {
+        if (element1.date == element2.date) {
+          let model = element2;
+          model.item = element1.item;
+          this.userCostInfoList.push(model)
+        }
+      });
     });
 
-    this.changeCostList.forEach((element:any)=> {
-      let model=element;
-  
-      let index=this.userCostInfoList.findIndex((item1: { date: string, userId: number }) => item1.date === element.date && item1.userId == parseFloat(element.userId))
-      if(index!=-1)
-        {
-          this.userCostInfoList[index].amount=parseFloat(element.amount)
-        }
-        else{
-          let itemName=this.mapItemList[element.date];
-          model.item="";
-          if(!!itemName)
-            {
-              model.item=itemName              
-            }
-      
-    this.userCostInfoList.push(model);
-          
-
-        }
-      
-    });
-
-    console.log(this.userCostInfoList)
-
-
-    this.authenticationService.addUserCost(this.userCostInfoList).subscribe(res=>{
-
-    })
-    /*
     this.changeCostList.forEach((element: any) => {
-      let model: any = element;
-      let index = this.changeItemList.findIndex((item1: { date: string }) => item1.date === element.date);
+      let model = element;
+
+      let index = this.userCostInfoList.findIndex((item1: { date: string, userId: number }) => item1.date === element.date && item1.userId == parseFloat(element.userId))
       if (index != -1) {
-        model.item = this.changeItemList[index].item;
+        this.userCostInfoList[index].amount = parseFloat(element.amount)
       }
       else {
-        if(!!this.mapItemList[element.date])
-          {
-              model.item=this.mapItemList[element.date]
-          }
-        let index = this.monthlyUserData.findIndex((item1: { date: string, userId: string }) => item1.date === element.date && item1.userId == element.id);
-        if (index != -1)
-          model.item = this.monthlyUserData[index].item;
-
-        else {
-          model.item = "";
+        let itemName = this.mapItemList[element.date];
+        model.item = "";
+        if (!!itemName) {
+          model.item = itemName
         }
+
+        this.userCostInfoList.push(model);
+
+
       }
-      model.amount=parseFloat(model.amount)
-      model.userId=parseFloat(model.userId)
-      this.userCostInfoList.push(model)
-    });
 
-    this.changeItemList.forEach((element: any) => {
-
-      let model: any = element;
-      let index = this.changeCostList.findIndex((item1: { date: string }) => item1.date === element.date);
-      if (index == -1) {
-
-        this.monthlyUserData.forEach((element2: any) => {
-          if (element.date == element2.date) {
-            model = element2;
-            model.item = element.item;
-            model.amount=parseFloat(model.amount);
-            this.userCostInfoList.push(model)
-
-          }
-
-        });
-      }
     });
 
 
-*/
+
+    this.authenticationService.addUserCost(this.userCostInfoList).subscribe(res => {
+
+    })
 
 
-    console.log(this.userCostInfoList);
+
+
 
   }
   home() {

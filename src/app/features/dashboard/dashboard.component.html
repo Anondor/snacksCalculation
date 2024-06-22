@@ -25,7 +25,15 @@
     
               
          }
-        
+
+       
+          <tr>
+            <td scope="col">Remaining balance </td>
+            @for (item of userList; track item.id) {
+                <td scope="col" style="text-align: center;"> {{ mapUserAmountList[item.id] }}</td>     
+        }
+        <td scope="col"> </td>
+          </tr>
      
     
         </tbody>

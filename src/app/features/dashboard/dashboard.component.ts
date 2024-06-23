@@ -14,7 +14,7 @@ import { UserCostInfoModel } from '../../authentication/models/user.model';
 })
 export class DashboardComponent implements OnInit {
   userList: any = []
-  user: any;
+  userValue: any;
   todaysDate: string = ''
   firstDayOfMonth: string = '';
   dateList: any = [];
@@ -42,15 +42,14 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllUserList()
-    this.authenticationService.getLoggedUser();
+    this.getLoggedUser();
 
 
 
 
   }
   getAllUserList() {
-    console.log(this.userTotalAmount);
-    console.log(this.userTotalCost)
+
     this.authenticationService.getAllUser().subscribe(res => {
       this.userList = res.result;
     })
@@ -75,6 +74,12 @@ export class DashboardComponent implements OnInit {
 
 
 
+  }
+  exportExcel()
+  {
+    this.authenticationService.getExportFile(this.dateList[0], this.dateList[this.dateList.length - 1]).subscribe(res=>{
+
+    })
   }
   getUserAmount() {
     this.authenticationService.getUserAmount().subscribe(res => {
@@ -215,7 +220,7 @@ export class DashboardComponent implements OnInit {
   }
   getLoggedUser() {
 
-    this.user = this.authenticationService.getLoggedUser()
+    this.userValue = this.authenticationService.getLoggedUser()
 
   }
 }

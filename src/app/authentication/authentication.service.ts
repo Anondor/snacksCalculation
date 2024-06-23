@@ -57,6 +57,10 @@ export class AuthenticationService {
   {
     return this.http.get<any>(`https://localhost:7206/api/User/getMonthlyCost?fromDate=${fromDate}&toDate=${toDate}`);
   }
+  getExportFile(fromDate:string,toDate:string)
+  {
+       return this.http.get<any>(`https://localhost:7206/api/User/exportReport?fromDate=${fromDate}&toDate=${toDate}`);
+  }
   getUserAmount()
   {
     return this.http.get<any>(`https://localhost:7206/api/UserCost/userAmount`);

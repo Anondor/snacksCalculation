@@ -8,7 +8,8 @@ export interface User {
   }
   export abstract class RoleConstants {
     static  SuperAdmin = "0";
-    static SuperUser = "1";
+    static Admin = "1";
+    static NormalUser="2";
   }
 
   export class FormTexts {

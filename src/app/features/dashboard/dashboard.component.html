@@ -16,7 +16,7 @@
                 @for(user of userList; track user.id )
                 {
                 <td scope="col">
-                    @if (userValue.typ=="0") {
+                    @if (userValue.typ=="0"||userValue.typ=="1") {
                     <input id="{{user.id}}" [(ngModel)]="maptest[item][user.id]" (blur)="onBlurEvent($event, item)"
                         placeholder="0" style="text-align: center;">
 
@@ -39,7 +39,7 @@
 
                 }
                 <td scope="col">
-                    @if (userValue.typ=="0") {
+                    @if (userValue.typ=="0"||userValue.typ=="1") {
                     <input [(ngModel)]="mapItemList[item]" (blur)="onBlurItemEvent($event, item)"
                         placeholder="Enter Items" style="text-align: center;">
                     }
@@ -61,7 +61,7 @@
             <tr>
                 <td scope="col">Remaining balance </td>
                 @for (item of userList; track item.id) {
-                @if(userValue.typ=='0')
+                @if(userValue.typ=='0'||userValue.typ=="1")
                 {
 
                 <td scope="col" style="text-align: center;"> {{ mapUserAmountList[item.id] }}</td>

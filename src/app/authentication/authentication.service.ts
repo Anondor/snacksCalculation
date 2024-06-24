@@ -40,6 +40,22 @@ export class AuthenticationService {
       }
   else return null;
   }
+  DownloadFile(file: Blob | ArrayBuffer, fileName: string, type: string): void {
+    var blob = new Blob([file], { "type": type })
+    
+    var link = document.createElement("a");
+    let reader = new FileReader();
+    reader.readAsDataURL(blob);
+    link.download = fileName;
+    reader.onload = function () {
+        if (typeof (reader.result) === 'string') {
+            link.href = reader.result; // data url
+            link.click();
+        }
+
+    };
+    link.click();
+}
   addUser(model:any)
   {
     return this.http.post<any>(`https://localhost:7206/api/User`, model);
@@ -59,7 +75,8 @@ export class AuthenticationService {
   }
   getExportFile(fromDate:string,toDate:string)
   {
-       return this.http.get<any>(`https://localhost:7206/api/User/exportReport?fromDate=${fromDate}&toDate=${toDate}`);
+      // return this.http.get<any>(`https://localhost:7206/api/User/exportReport?fromDate=${fromDate}&toDate=${toDate}`);
+      return this.http.get(`https://localhost:7206/api/User/exportReport?fromDate=${fromDate}&toDate=${toDate}`,{responseType: 'blob'});
   }
   getUserAmount()
   {

@@ -15,7 +15,7 @@ import { UserCostInfoModel } from '../../authentication/models/user.model';
 export class DashboardComponent implements OnInit {
   userList: any = []
   userValue: any;
-  todaysDate: string = ''
+  todaysDate: any = new Date();
   firstDayOfMonth: string = '';
   dateList: any = [];
   maptest: { [key: string]: { [key: string]: string } } = {};
@@ -77,7 +77,12 @@ export class DashboardComponent implements OnInit {
   }
   exportExcel()
   {
+    let fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
     this.authenticationService.getExportFile(this.dateList[0], this.dateList[this.dateList.length - 1]).subscribe(res=>{
+
+     // const fileName = `AuditReport_${Utility.getDateTimeSuffixForExcelFilename()}.xlsx`;
+     const fileName=`MonthlyReport_${this.todaysDate}.xlsx`;
+this.authenticationService.DownloadFile(res, fileName, fileType);
 
     })
   }
@@ -121,10 +126,8 @@ export class DashboardComponent implements OnInit {
     else {
       this.changeCostList.push(model);
     }
-
-
-
   }
+
   getDateList() {
     let day = new Date().getDate()
     let month = (new Date().getMonth() + 1).toString()

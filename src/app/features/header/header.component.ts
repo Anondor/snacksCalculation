@@ -23,7 +23,7 @@ export class HeaderComponent {
   }
   goToHome()
   {
-    this.router.navigate(["features/admin"]);
+    this.router.navigate(["features/add-balance"]);
   }
   addNewUser()
   {
@@ -31,11 +31,7 @@ export class HeaderComponent {
   }
   logout()
   {
-    this.authenticationService.logout()
-    
-      window.location.href = '/';
-    
-
+    this.authenticationService.logout()    
   }
   
 }

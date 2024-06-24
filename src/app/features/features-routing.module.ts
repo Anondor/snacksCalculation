@@ -11,7 +11,7 @@ const routes: Routes = [
   
   {path:"dashboard",canActivate: [AuthenticationGuard],component:DashboardComponent},
   {
-    path: 'admin',component: HomeComponent,canActivate: [AuthenticationGuard],
+    path: 'add-balance',component: HomeComponent,canActivate: [AuthenticationGuard],
     data: { roles: [RoleConstants.SuperAdmin,RoleConstants.Admin] }
 },
 {

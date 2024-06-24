@@ -19,7 +19,7 @@ export class AuthenticationService {
 
   logout(): void {
     localStorage.removeItem("access_token");
-    this.router.navigate(["/login"]);
+    this.router.navigate(["/"]);
   }
 
 	public isAuthenticated(): boolean {

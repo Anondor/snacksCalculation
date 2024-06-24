@@ -168,12 +168,6 @@ this.authenticationService.DownloadFile(res, fileName, fileType);
     }
     this.maptest[firstDayOfMonth][key] = value.toString();
   }
-  logout() {
-    this.authenticationService.logout()
-
-    // window.location.href = '/';
-    this.router.navigate([""]);
-  }
   saveData() {
     this.userCostInfoList = [];
     this.changeItemList.forEach((element1: any) => {

@@ -16,10 +16,8 @@ maxDate?:string;
   userList: any = []
   amountForm:FormGroup ;
 
-date: any;
    constructor(private router:Router,private authenticationService:AuthenticationService){ 
     this.amountForm = new FormGroup({
-      //id:new FormControl(),
       userId:new FormControl(null,Validators.required),
       date:new FormControl(null,[Validators.required,Validators.email]),
       amount:new FormControl(null,[Validators.required])
@@ -37,8 +35,6 @@ date: any;
 
     this.authenticationService.getAllUser().subscribe(res => {
       this.userList = res.result;
-
-      console.log(this.userList);
     })
 
   }

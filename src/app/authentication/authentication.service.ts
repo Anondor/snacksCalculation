@@ -82,6 +82,13 @@ export class AuthenticationService {
       // return this.http.get<any>(`https://localhost:7206/api/User/exportReport?fromDate=${fromDate}&toDate=${toDate}`);
       return this.http.get(`https://localhost:7206/api/User/exportReport?fromDate=${fromDate}&toDate=${toDate}`,{responseType: 'blob'});
   }
+
+  getGeneratedFile(fromDate:string,toDate:string,userId:string)
+  {
+      // return this.http.get<any>(`https://localhost:7206/api/User/exportReport?fromDate=${fromDate}&toDate=${toDate}`);
+
+      return this.http.get(`https://localhost:7206/api/User/exportGeneratedReport?fromDate=${fromDate}&toDate=${toDate}&userId=${userId}`,{responseType: 'blob'});
+  }
   getUserAmount()
   {
     return this.http.get<any>(`https://localhost:7206/api/UserCost/userAmount`);

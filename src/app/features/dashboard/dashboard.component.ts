@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   userTotalAmount: any = [];
   userTotalCost: any = [];
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { 
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
     this.getAllUserList()
     this.getUserAmount();
     this.getDateList();
@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   
+
     this.getLoggedUser();
 
 
@@ -54,12 +54,12 @@ export class DashboardComponent implements OnInit {
 
     this.authenticationService.getAllUser().subscribe(res => {
       this.userList = res.result;
-      this.userList.forEach((element:any) => {
-        this.mapUserTotalCostList[element.id]=0;
-        
+      this.userList.forEach((element: any) => {
+        this.mapUserTotalCostList[element.id] = 0;
+
       });
 
-     
+
     })
 
   }
@@ -83,27 +83,26 @@ export class DashboardComponent implements OnInit {
 
 
   }
-  exportExcel()
-  {
+  exportExcel() {
     let fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    this.authenticationService.getExportFile(this.dateList[0], this.dateList[this.dateList.length - 1]).subscribe(res=>{
-     const fileName=`MonthlyReport_${this.todaysDate}.xlsx`;
-this.authenticationService.DownloadFile(res, fileName, fileType);
+    this.authenticationService.getExportFile(this.dateList[0], this.dateList[this.dateList.length - 1]).subscribe(res => {
+      const fileName = `MonthlyReport_${this.todaysDate}.xlsx`;
+      this.authenticationService.DownloadFile(res, fileName, fileType);
 
     })
   }
   getUserAmount() {
     this.authenticationService.getUserAmount().subscribe(res => {
       this.userTotalAmount = res.result;
-      this.userTotalAmount.forEach((element:any) => {
-        this.mapUserAmountList[element.userId]=element.totalAmount;
-        
+      this.userTotalAmount.forEach((element: any) => {
+        this.mapUserAmountList[element.userId] = element.totalAmount;
+
       });
       this.authenticationService.getUserCost().subscribe(res => {
         this.userTotalCost = res.result;
-        this.userTotalCost.forEach((element:any) => {
-          this.mapUserAmountList[element.userId]-=element.totalAmount;
-          });
+        this.userTotalCost.forEach((element: any) => {
+          this.mapUserAmountList[element.userId] -= element.totalAmount;
+        });
 
       })
     })
@@ -159,14 +158,8 @@ this.authenticationService.DownloadFile(res, fileName, fileType);
       this.monthlyUserData.forEach((element: any) => {
         this.setValue(element.date, element.userId.toString(), element.amount.toString());
         this.mapItemList[element.date] = element.item;
-        this.mapUserTotalCostList[element.userId]+=element.amount;
-
-
-
+        this.mapUserTotalCostList[element.userId] += element.amount;
       });
-
-      console.log("mpnthly cost: ",this.mapUserTotalCostList);
-
 
     })
 

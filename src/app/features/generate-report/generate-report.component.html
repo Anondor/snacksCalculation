@@ -1,0 +1,31 @@
+
+
+<div >
+  <form [formGroup]="reportForm" (ngSubmit)="generateReport()">
+  
+    <div class="form-group">
+        <label>Choose User</label>
+      <select  class="form-select" aria-label="Default select example" formControlName="userId">
+        @for (item of userList; track item.id) {
+          <option value="{{ item.id }}">{{ item.name }}</option>
+        }
+      </select> 
+      </div>
+
+    <div class="form-group">
+      <label>From Date</label>
+      <input type="date"  class="form-control" [max]="maxDate"   formControlName="fromDate">
+    </div>
+    <div class="form-group">
+        <label>From Date</label>
+        <input type="date"  class="form-control" [max]="maxDate"    formControlName="toDate">
+      </div>
+
+
+
+    <div class="form-group" style="margin-top: 1ch;">
+      <button type="submit" class="btn btn-primary">save</button>
+
+    </div>
+  </form>
+</div>

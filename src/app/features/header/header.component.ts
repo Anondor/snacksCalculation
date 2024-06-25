@@ -29,6 +29,10 @@ export class HeaderComponent {
   {
     this.router.navigate(["features/add-new-user"])
   }
+  generateReport()
+  {
+    this.router.navigate(["features/generate-report"])
+  }
   logout()
   {
     this.authenticationService.logout()    

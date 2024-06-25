@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   dateList: any = [];
   maptest: { [key: string]: { [key: string]: string } } = {};
 
+  mapUserTotalCostList: { [key: number]: number } = {}
   mapItemList: { [key: string]: string } = {}
   mapUserAmountList: { [key: number]: number } = {}
   changeItemList: any = [];
@@ -32,7 +33,8 @@ export class DashboardComponent implements OnInit {
   userTotalAmount: any = [];
   userTotalCost: any = [];
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
+  constructor(private authenticationService: AuthenticationService, private router: Router) { 
+    this.getAllUserList()
     this.getUserAmount();
     this.getDateList();
     this.getMonthlyUserData();
@@ -41,7 +43,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllUserList()
+   
     this.getLoggedUser();
 
 
@@ -52,6 +54,12 @@ export class DashboardComponent implements OnInit {
 
     this.authenticationService.getAllUser().subscribe(res => {
       this.userList = res.result;
+      this.userList.forEach((element:any) => {
+        this.mapUserTotalCostList[element.id]=0;
+        
+      });
+
+     
     })
 
   }
@@ -79,8 +87,6 @@ export class DashboardComponent implements OnInit {
   {
     let fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
     this.authenticationService.getExportFile(this.dateList[0], this.dateList[this.dateList.length - 1]).subscribe(res=>{
-
-     // const fileName = `AuditReport_${Utility.getDateTimeSuffixForExcelFilename()}.xlsx`;
      const fileName=`MonthlyReport_${this.todaysDate}.xlsx`;
 this.authenticationService.DownloadFile(res, fileName, fileType);
 
@@ -97,8 +103,7 @@ this.authenticationService.DownloadFile(res, fileName, fileType);
         this.userTotalCost = res.result;
         this.userTotalCost.forEach((element:any) => {
           this.mapUserAmountList[element.userId]-=element.totalAmount;
-          
-        });
+          });
 
       })
     })
@@ -154,9 +159,14 @@ this.authenticationService.DownloadFile(res, fileName, fileType);
       this.monthlyUserData.forEach((element: any) => {
         this.setValue(element.date, element.userId.toString(), element.amount.toString());
         this.mapItemList[element.date] = element.item;
+        this.mapUserTotalCostList[element.userId]+=element.amount;
+
 
 
       });
+
+      console.log("mpnthly cost: ",this.mapUserTotalCostList);
+
 
     })
 

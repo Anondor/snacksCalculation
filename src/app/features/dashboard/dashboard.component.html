@@ -56,7 +56,34 @@
 
 
             }
+            <tr>
+                <td scope="col">Total Cost : </td>
+                @for (item of userList; track item.id) {
+                @if(userValue.typ=='0'||userValue.typ=="1")
+                {
 
+                <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id] }}</td>
+                }@else {
+                <td scope="col"> {{ mapUserTotalCostList[item.id] }}</td>
+                }
+
+                }
+                <td scope="col"> </td>
+            </tr>
+            <tr>
+                <td scope="col">Total Balance : </td>
+                @for (item of userList; track item.id) {
+                @if(userValue.typ=='0'||userValue.typ=="1")
+                {
+
+                <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id] +mapUserAmountList[item.id]}}</td>
+                }@else {
+                <td scope="col"> {{ mapUserTotalCostList[item.id] +mapUserAmountList[item.id]}}</td>
+                }
+
+                }
+                <td scope="col"> </td>
+            </tr>
 
             <tr>
                 <td scope="col">Remaining balance </td>

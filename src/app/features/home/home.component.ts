@@ -12,17 +12,13 @@ import { AuthenticationService } from '../../authentication/authentication.servi
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-
+maxDate?:string;
   userList: any = []
-  signupForm:FormGroup ;
-  userTypeData:any=[
-    {id:1, type:"Admin"},
-    { id:2, type:"User"}
+  amountForm:FormGroup ;
 
-  ]
 date: any;
    constructor(private router:Router,private authenticationService:AuthenticationService){ 
-    this.signupForm = new FormGroup({
+    this.amountForm = new FormGroup({
       //id:new FormControl(),
       userId:new FormControl(null,Validators.required),
       date:new FormControl(null,[Validators.required,Validators.email]),
@@ -32,6 +28,8 @@ date: any;
    }
  
    ngOnInit(): void {
+    const today=new Date();
+    this.maxDate=today.toISOString().split('T')[0];
     this.getAllUserList()
 
    }
@@ -44,10 +42,12 @@ date: any;
     })
 
   }
-   signupdata()
+   saveAmountData()
    {
-     let user=this.signupForm.value;
-     this.authenticationService.addUser(user).subscribe(res=>{
+     let user=this.amountForm.value;
+
+     
+     this.authenticationService.addUserAmount(user).subscribe(res=>{
         this.router.navigate(['features/dashboard']);
 
      })
@@ -55,7 +55,7 @@ date: any;
    }
   
   onReset(): void {
-    this.signupForm.reset();
+    this.amountForm.reset();
   }
 
 }

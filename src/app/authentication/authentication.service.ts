@@ -60,6 +60,10 @@ export class AuthenticationService {
   {
     return this.http.post<any>(`https://localhost:7206/api/User`, model);
   }
+  addUserAmount(model:any)
+  {
+    return this.http.post<any>(`https://localhost:7206/api/UserCost`, model);
+  }
   addUserCost(model:any)
   {
     return this.http.post<any>(`https://localhost:7206/api/User/addCost`, model);

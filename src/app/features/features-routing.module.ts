@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AddMoneyComponent } from './home/add-money.component';
+import { AddMoneyComponent } from './add-money/add-money.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthenticationGuard } from '../authentication/guards/authentication.guard';
 import { Routes, RouterModule } from '@angular/router';

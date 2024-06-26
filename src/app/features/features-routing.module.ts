@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-//import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { AddMoneyComponent } from './home/add-money.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthenticationGuard } from '../authentication/guards/authentication.guard';
 import { Routes, RouterModule } from '@angular/router';
@@ -13,7 +12,7 @@ const routes: Routes = [
   {path:"dashboard",canActivate: [AuthenticationGuard],component:DashboardComponent},
   {path:"generate-report",canActivate: [AuthenticationGuard],component:GenerateReportComponent},
   {
-    path: 'add-balance',component: HomeComponent,canActivate: [AuthenticationGuard],
+    path: 'add-balance',component: AddMoneyComponent,canActivate: [AuthenticationGuard],
     data: { roles: [RoleConstants.SuperAdmin,RoleConstants.Admin] }
 },
 {

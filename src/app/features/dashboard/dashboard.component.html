@@ -1,6 +1,6 @@
 <div>
     <button class="btn btn-primary" style="float: right;" (click)="exportExcel()">Export</button>
-    <table >
+    <table>
         <thead>
             <th scope="col"> Date</th>
             @for (item of userList; track item.id) {
@@ -16,9 +16,10 @@
                 @for(user of userList; track user.id )
                 {
                 <td scope="col">
-                    @if (userValue.typ=="0"||userValue.typ=="1") {
-                    <input class="input-sm" id="{{user.id}}" [(ngModel)]="maptest[item][user.id]" (blur)="onBlurEvent($event, item)"
-                        placeholder="0" style="text-align: center;">
+
+                    @if (userValue.typ!=normalUserType) {
+                    <input class="input-sm" id="{{user.id}}" [(ngModel)]="maptest[item][user.id]"
+                        (blur)="onBlurEvent($event, item)" placeholder="0" style="text-align: center;">
 
                     }
                     @else {
@@ -28,18 +29,13 @@
                     }
                     @else
                     {0
-
                     }
-
-
                     }
-
-
                 </td>
 
                 }
                 <td scope="col">
-                    @if (userValue.typ=="0"||userValue.typ=="1") {
+                    @if (userValue.typ!=normalUserType) {
                     <input [(ngModel)]="mapItemList[item]" (blur)="onBlurItemEvent($event, item)"
                         placeholder="Enter Items" style="text-align: center;">
                     }
@@ -55,10 +51,10 @@
             </tr>
             }
             <tr>
-               
+
                 <td scope="col"> <strong> Total Cost</strong> : </td>
                 @for (item of userList; track item.id) {
-                @if(userValue.typ=='0'||userValue.typ=="1")
+                @if (userValue.typ!=normalUserType)
                 {
 
                 <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id] }}</td>
@@ -72,10 +68,11 @@
             <tr>
                 <td scope="col"><strong> Total Balance</strong> : </td>
                 @for (item of userList; track item.id) {
-                @if(userValue.typ=='0'||userValue.typ=="1")
+                @if (userValue.typ!=normalUserType)
                 {
 
-                <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id] +mapUserAmountList[item.id]}}</td>
+                <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id]
+                    +mapUserAmountList[item.id]}}</td>
                 }@else {
                 <td scope="col"> {{ mapUserTotalCostList[item.id] +mapUserAmountList[item.id]}}</td>
                 }
@@ -87,7 +84,7 @@
             <tr>
                 <td scope="col"><strong> Remaining balance</strong> : </td>
                 @for (item of userList; track item.id) {
-                @if(userValue.typ=='0'||userValue.typ=="1")
+                @if (userValue.typ!=normalUserType)
                 {
 
                 <td scope="col" style="text-align: center;"> {{ mapUserAmountList[item.id] }}</td>

@@ -13,6 +13,7 @@ import { UserCostInfoModel } from '../../authentication/models/user.model';
   imports: [HeaderComponent, FormsModule]
 })
 export class DashboardComponent implements OnInit {
+  normalUserType:string='2';
   userList: any = []
   userValue: any;
   todaysDate: any = new Date();
@@ -34,20 +35,15 @@ export class DashboardComponent implements OnInit {
   userTotalCost: any = [];
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
-    this.getAllUserList()
-    this.getUserAmount();
-    this.getDateList();
-    this.getMonthlyUserData();
-
 
   }
 
   ngOnInit(): void {
-
+    this.getAllUserList()
+    this.getUserAmount();
+    this.getDateList();
+    this.getMonthlyUserData();
     this.getLoggedUser();
-
-
-
 
   }
   getAllUserList() {
@@ -196,27 +192,16 @@ export class DashboardComponent implements OnInit {
         if (!!itemName) {
           model.item = itemName
         }
-
         this.userCostInfoList.push(model);
-
-
       }
 
     });
 
-
-
     this.authenticationService.addUserCost(this.userCostInfoList).subscribe(res => {
-
+      this.ngOnInit()
     })
 
-
-
-
-
-  }
-  home() {
-    this.router.navigate(["features/admin"])
+    
   }
   getLoggedUser() {
 

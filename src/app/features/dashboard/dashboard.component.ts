@@ -39,11 +39,15 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.dateList=[];
     this.getAllUserList()
     this.getUserAmount();
     this.getDateList();
     this.getMonthlyUserData();
     this.getLoggedUser();
+
+    
 
   }
   getAllUserList() {

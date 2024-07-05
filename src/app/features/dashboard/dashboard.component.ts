@@ -4,15 +4,17 @@ import { HeaderComponent } from "../header/header.component";
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserCostInfoModel } from '../../authentication/models/user.model';
+import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
-  imports: [HeaderComponent, FormsModule]
+  imports: [HeaderComponent, FormsModule,BsDatepickerModule]
 })
 export class DashboardComponent implements OnInit {
+  bsConfig: Partial<BsDatepickerConfig> ;
   normalUserType:string='2';
   userList: any = []
   userValue: any;
@@ -35,6 +37,11 @@ export class DashboardComponent implements OnInit {
   userTotalCost: any = [];
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
+    this.bsConfig = {
+      dateInputFormat: 'MM/YYYY',
+      minMode: 'month',
+      containerClass: 'theme-dark-blue'
+    };
 
   }
 
@@ -46,6 +53,8 @@ export class DashboardComponent implements OnInit {
     this.getDateList();
     this.getMonthlyUserData();
     this.getLoggedUser();
+
+    console.log(this.bsConfig)
 
     
 

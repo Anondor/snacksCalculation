@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { tokenGetter } from '../../app.config';
 import { AuthenticationService } from '../../authentication/authentication.service';
+import { SharedService } from '../../Shared/shared.service';
 
 @Component({
   selector: 'app-header',
@@ -12,30 +13,34 @@ import { AuthenticationService } from '../../authentication/authentication.servi
 })
 export class HeaderComponent {
 
-  constructor(private router:Router, private authenticationService:AuthenticationService,)
-  {
+  constructor(private router: Router, private authenticationService: AuthenticationService,) {
+  
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        SharedService.logUser = this.authenticationService.getLoggedUser();
+      }
+    });
+
 
   }
-
-  goToDashboard()
-  {
-		this.router.navigate(["features/dashboard"]);
+  get logUser(): any {
+    return SharedService.logUser;
   }
-  goToHome()
-  {
+  goToDashboard() {
+    this.router.navigate(["features/dashboard"]);
+  }
+  goToHome() {
     this.router.navigate(["features/add-balance"]);
   }
-  addNewUser()
-  {
+  addNewUser() {
     this.router.navigate(["features/add-new-user"])
   }
-  generateReport()
-  {
+  generateReport() {
     this.router.navigate(["features/generate-report"])
   }
-  logout()
-  {
-    this.authenticationService.logout()    
+  logout() {
+    SharedService.logUser = undefined;
+    this.authenticationService.logout()
   }
-  
+
 }

@@ -1,64 +1,77 @@
-
 <div class="container-fluid">
   <div class="row">
-
+    @if(!!logUser)
+    {
     <div class="d-flex flex-column justify-content-between col-auto bg-dark min-vh-100">
-        <div class="bg-dark p-2">
-            <a class="text-white d-none d-sm-inline
+      <div class="bg-dark p-2">
+        <a class="text-white d-none d-sm-inline
               text-decoration-none d-flex  align-items-center ">
-                <span class="fs-5">SnacksCalculation
-                </span>
-                
+          <span class="fs-5">SnacksCalculation
+          </span>
+
+        </a>
+        <hr class="text-white d-none d-sm-block" />
+        <ul class="nav nav-pills flex-column mt-2 mt-sm-0" id="menu">
+          <li class="nav-item ">
+            <a (click)="goToDashboard()" class="nav-link text-white" aria-current="page">
+              <i class="fa fa-table"> </i>
+              <span class=" ms-2 d-none d-sm-inline"> Dashboard</span>
             </a>
-            <hr class="text-white d-none d-sm-block"/>
-            <ul class="nav nav-pills flex-column mt-2 mt-sm-0" id="menu">
-                <li class="nav-item ">
-                  <a (click)="goToDashboard()"class="nav-link text-white"  
-                    aria-current="page">
-                      <i class="fa fa-table" > </i>
-                      <span class=" ms-2 d-none d-sm-inline"> Dashboard</span>
-                      </a>
 
-              </li>
+          </li>
+          @if(logUser.typ!="2")
+          {
+          <li class="nav-item ">
+            <a (click)="goToHome()" class="nav-link text-white" aria-current="page">
+              <i class="fa fa-money"> </i>
+              <span class=" ms-2 d-none d-sm-inline"> Add Money</span>
+            </a>
 
-                <li class="nav-item ">
-                    <a (click)="goToHome()"class="nav-link text-white"  
-                      aria-current="page">
-                        <i class="fa fa-money" > </i>
-                        <span class=" ms-2 d-none d-sm-inline"> Add Money</span>
-                        </a>
+          </li>
+          }
 
-                </li>
-                <li class="nav-item ">
-                    <a (click)="addNewUser()"class="nav-link text-white" >
-                        <i class=" fa fa-users"    aria-current="page"> </i>
-                        <span class=" ms-3 d-none d-sm-inline"> Add User</span>
-                        </a>
-                </li>
-                <li class="nav-item ">
-                  <a (click)="generateReport()"class="nav-link text-white" >
-                      <i class=" fa fa-solid fa-file"    aria-current="page"> </i>
-                      <span class=" ms-3 d-none d-sm-inline"> Generate Report</span>
-                      </a>
-              </li>
-            </ul>
+          @if(logUser.typ=="0")
+          {
+          <li class="nav-item ">
+            <a (click)="addNewUser()" class="nav-link text-white">
+              <i class=" fa fa-users" aria-current="page"> </i>
+              <span class=" ms-3 d-none d-sm-inline"> Add User</span>
+            </a>
+          </li>
+          }
 
-        </div>
-        <div>
-          <div class="dropdown open">
-            <a class="btn border-none outline-none text-white dropdown-toggle" type="button" id="triggerId" 
+
+          <li class="nav-item ">
+            <a (click)="generateReport()" class="nav-link text-white">
+              <i class=" fa fa-solid fa-file" aria-current="page"> </i>
+              <span class=" ms-3 d-none d-sm-inline"> Generate Report</span>
+            </a>
+          </li>
+        </ul>
+
+      </div>
+   
+      <div>
+        <div class="dropdown open">
+          <a class="btn border-none outline-none text-white dropdown-toggle" type="button" id="triggerId"
             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <li class="fa fa-user"></li><span class="ms-1">Admin</span>
-            </a>
-             <div class="dropdown-menu" aria-labelledby="triggerId">
-            <a (click)="logout()" class="dropdown-item" >Logout</a>
-          </div>
+            <li class="fa fa-user"></li><span class="ms-1">{{logUser.Name}}</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="triggerId">
+            <a (click)="logout()" class="dropdown-item">Logout</a>
           </div>
         </div>
-    </div>
-    <div class="col py-3">
-    <router-outlet></router-outlet>
-    </div>
+      </div>
     
+    </div>
+    }
+
+    <div class="col py-3">
+
+      <router-outlet></router-outlet>
+
+
+    </div>
+
   </div>
 </div>

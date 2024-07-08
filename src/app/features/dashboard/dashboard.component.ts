@@ -15,6 +15,7 @@ import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker
 })
 export class DashboardComponent implements OnInit {
   bsConfig: Partial<BsDatepickerConfig> ;
+  selectedMonth:Date | null = null;
   normalUserType:string='2';
   userList: any = []
   userValue: any;
@@ -54,9 +55,44 @@ export class DashboardComponent implements OnInit {
     this.getMonthlyUserData();
     this.getLoggedUser();
 
-    console.log(this.bsConfig)
-
     
+
+  }
+  getSelectedMonthYear()
+  {
+    let firstDayOfCurrentMonth,lastDayOfCurrentMonth;
+
+    if(this.selectedMonth)
+    {
+      let year = this.selectedMonth.getFullYear();
+      let month = this.selectedMonth.getMonth() + 1; 
+      const firstDayNextMonth = new Date(year, month, 1);
+      const lastDayCurrentMonth = new Date(firstDayNextMonth);
+      lastDayCurrentMonth.setDate(firstDayNextMonth.getDate() - 1);
+      let lastDay=lastDayCurrentMonth.getDate();
+      console.log("Test: ", lastDayOfCurrentMonth);
+
+      this.getDateListValue(lastDay, month.toString(),year.toString());
+    }
+  }
+  getDateListValue(day:number,month:string,year:string)
+  {
+    this.dateList=[];
+    if (month.length == 1) month = '0' + month;
+    for (let daynum = 1; daynum <= day; daynum++) {
+      let datevalue = daynum.toString();
+      if (datevalue.length == 1) {
+        datevalue = '0' + datevalue;
+      }
+      let date = year + '-' + month + '-' + datevalue;
+      this.dateList.push(date)
+      if (!this.maptest[date]) {
+        this.maptest[date] = {};
+      }
+
+    }
+    this.getMonthlyUserData();
+
 
   }
   getAllUserList() {
@@ -144,19 +180,7 @@ export class DashboardComponent implements OnInit {
     let day = new Date().getDate()
     let month = (new Date().getMonth() + 1).toString()
     let year = new Date().getFullYear().toString();
-    if (month.length == 1) month = '0' + month;
-    for (let daynum = 1; daynum <= day; daynum++) {
-      let datevalue = daynum.toString();
-      if (datevalue.length == 1) {
-        datevalue = '0' + datevalue;
-      }
-      let date = year + '-' + month + '-' + datevalue;
-      this.dateList.push(date)
-      if (!this.maptest[date]) {
-        this.maptest[date] = {};
-      }
-
-    }
+    this.getDateListValue(day,month,year);
 
   }
   getMonthlyUserData() {

@@ -3,12 +3,15 @@
     <div class="container mt-5"> 
         <div class="form-group">
             <label for="monthYearPicker">Select Month and Year:</label>
-            <input type="text" class="form-control" id="monthYearPicker" bsDatepicker [bsConfig]="bsConfig" >
-          </div>
+            <input type="text"  id="monthYearPicker" bsDatepicker [bsConfig]="bsConfig" [(ngModel)]="selectedMonth" >
+            <button class="btn btn-primary" style="margin-left: 1ch;" (click)="getSelectedMonthYear()">Load</button>
+            <button class="btn btn-primary" style="margin-left: 1ch;" (click)="exportExcel()">Export</button>
+        </div>
+         
     
     </div>
  
-    <button class="btn btn-primary" style="float: right;" (click)="exportExcel()">Export</button>
+  
     <table>
         <thead>
             <th scope="col"> Date</th>

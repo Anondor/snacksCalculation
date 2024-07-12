@@ -24,7 +24,7 @@
                 {
                 <td scope="col">
 
-                    @if (userValue.typ!=normalUserType) {
+                    @if (userValue.typ!=normalUserType && selectMonth==todaysMonth) {
                     <input class="input-sm" id="{{user.id}}" [(ngModel)]="maptest[item][user.id]"
                         (blur)="onBlurEvent($event, item)" placeholder="0" style="text-align: center;">
 
@@ -42,7 +42,7 @@
 
                 }
                 <td scope="col">
-                    @if (userValue.typ!=normalUserType) {
+                    @if (userValue.typ!=normalUserType && selectMonth==todaysMonth) {
                     <input [(ngModel)]="mapItemList[item]" (blur)="onBlurItemEvent($event, item)"
                         placeholder="Enter Items" style="text-align: center;">
                     }
@@ -61,7 +61,7 @@
 
                 <td scope="col"> <strong> Total Cost</strong> : </td>
                 @for (item of userList; track item.id) {
-                @if (userValue.typ!=normalUserType)
+                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
                 {
 
                 <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id] }}</td>

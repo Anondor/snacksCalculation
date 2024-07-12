@@ -20,8 +20,12 @@ export class DashboardComponent implements OnInit {
   userList: any = []
   userValue: any;
   todaysDate: any = new Date();
+  todaysMonth:any= new Date().getMonth();
+  selectMonth=this.todaysMonth
+
   firstDayOfMonth: string = '';
   dateList: any = [];
+
   maptest: { [key: string]: { [key: string]: string } } = {};
 
   mapUserTotalCostList: { [key: number]: number } = {}
@@ -54,9 +58,6 @@ export class DashboardComponent implements OnInit {
     this.getDateList();
     this.getMonthlyUserData();
     this.getLoggedUser();
-
-    
-
   }
   getSelectedMonthYear()
   {
@@ -70,6 +71,7 @@ export class DashboardComponent implements OnInit {
       lastDayCurrentMonth.setDate(firstDayNextMonth.getDate() - 1);
       let lastDay=lastDayCurrentMonth.getDate();
       this.getDateListValue(lastDay, month.toString(),year.toString());
+      this.selectMonth=this.selectedMonth.getMonth();
     }
   }
   getDateListValue(day:number,month:string,year:string)
@@ -141,6 +143,7 @@ export class DashboardComponent implements OnInit {
         toDate=year.toString()+'-';
         if(month.toString.length==1)toDate+='0';
         toDate+=month.toString()+'-'+lastDay.toString();
+        
 
       }
 

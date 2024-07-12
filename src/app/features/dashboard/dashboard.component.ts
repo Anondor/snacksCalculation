@@ -56,7 +56,6 @@ export class DashboardComponent implements OnInit {
     this.getAllUserList()
     this.getUserAmount();
     this.getDateList();
-    this.getMonthlyUserData();
     this.getLoggedUser();
   }
   getSelectedMonthYear()

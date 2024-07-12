@@ -72,6 +72,7 @@ export class DashboardComponent implements OnInit {
       this.getDateListValue(lastDay, month.toString(),year.toString());
       this.selectMonth=this.selectedMonth.getMonth();
     }
+    this.getMonthlyUserData();
   }
   getDateListValue(day:number,month:string,year:string)
   {
@@ -204,6 +205,11 @@ export class DashboardComponent implements OnInit {
   getMonthlyUserData() {
     this.authenticationService.getMonthlyCost(this.dateList[0], this.dateList[this.dateList.length - 1]).subscribe(res => {
       this.monthlyUserData = res.result;
+  this.userList.forEach((element:any) => {
+
+    this.mapUserTotalCostList[element.id]=0;
+  });
+ this.mapItemList={}
 
       this.monthlyUserData.forEach((element: any) => {
         this.setValue(element.date, element.userId.toString(), element.amount.toString());

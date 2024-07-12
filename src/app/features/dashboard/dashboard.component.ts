@@ -60,7 +60,6 @@ export class DashboardComponent implements OnInit {
   }
   getSelectedMonthYear()
   {
-    let firstDayOfCurrentMonth,lastDayOfCurrentMonth;
 
     if(this.selectedMonth)
     {
@@ -70,8 +69,6 @@ export class DashboardComponent implements OnInit {
       const lastDayCurrentMonth = new Date(firstDayNextMonth);
       lastDayCurrentMonth.setDate(firstDayNextMonth.getDate() - 1);
       let lastDay=lastDayCurrentMonth.getDate();
-      console.log("Test: ", lastDayOfCurrentMonth);
-
       this.getDateListValue(lastDay, month.toString(),year.toString());
     }
   }
@@ -128,8 +125,27 @@ export class DashboardComponent implements OnInit {
 
   }
   exportExcel() {
+
+    var fromDate=this.dateList[0], toDate=this.dateList[this.dateList.length - 1]
+    if(this.selectedMonth)
+      {
+        let year = this.selectedMonth.getFullYear();
+        let month = this.selectedMonth.getMonth() + 1; 
+        const firstDayNextMonth = new Date(year, month, 1);
+        const lastDayCurrentMonth = new Date(firstDayNextMonth);
+        lastDayCurrentMonth.setDate(firstDayNextMonth.getDate() - 1);
+        let lastDay=lastDayCurrentMonth.getDate();
+        fromDate=year.toString()+'-';
+        if(month.toString.length==1)fromDate+='0';
+        fromDate+=month.toString()+'-01';
+        toDate=year.toString()+'-';
+        if(month.toString.length==1)toDate+='0';
+        toDate+=month.toString()+'-'+lastDay.toString();
+
+      }
+
     let fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    this.authenticationService.getExportFile(this.dateList[0], this.dateList[this.dateList.length - 1]).subscribe(res => {
+    this.authenticationService.getExportFile(fromDate, toDate).subscribe(res => {
       const fileName = `MonthlyReport_${this.todaysDate}.xlsx`;
       this.authenticationService.DownloadFile(res, fileName, fileType);
 

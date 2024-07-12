@@ -43,6 +43,12 @@ export class GenerateReportComponent implements OnInit{
   generateReport()
   {
     let model=this.reportForm.value;
+    if(model.fromDate>model.toDate)
+    {
+      let temp=model.toDate;
+      model.toDate=model.fromDate;
+      model.fromDate=temp;
+    }
     if(model.userId==null)model.userId=this.userValue.Id
     let fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
     this.authenticationService.getGeneratedFile(model.fromDate,model.toDate,model.userId).subscribe(res=>{

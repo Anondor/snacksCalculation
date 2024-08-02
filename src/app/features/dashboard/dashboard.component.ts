@@ -69,6 +69,10 @@ export class DashboardComponent implements OnInit {
       const lastDayCurrentMonth = new Date(firstDayNextMonth);
       lastDayCurrentMonth.setDate(firstDayNextMonth.getDate() - 1);
       let lastDay=lastDayCurrentMonth.getDate();
+      if(month== (new Date().getMonth()+1))
+      {
+        lastDay= new Date().getDate();
+      }
       this.getDateListValue(lastDay, month.toString(),year.toString());
       this.selectMonth=this.selectedMonth.getMonth();
     }

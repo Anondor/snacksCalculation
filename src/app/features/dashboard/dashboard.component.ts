@@ -21,7 +21,9 @@ export class DashboardComponent implements OnInit {
   userValue: any;
   todaysDate: any = new Date();
   todaysMonth:any= new Date().getMonth();
+  todaysYear:any=new Date().getFullYear();
   selectMonth=this.todaysMonth
+  selectYear=this.todaysYear
 
   firstDayOfMonth: string = '';
   dateList: any = [];
@@ -75,6 +77,7 @@ export class DashboardComponent implements OnInit {
       }
       this.getDateListValue(lastDay, month.toString(),year.toString());
       this.selectMonth=this.selectedMonth.getMonth();
+      this.selectYear=this.selectedMonth.getFullYear();
     }
     this.getMonthlyUserData();
   }

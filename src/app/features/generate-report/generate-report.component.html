@@ -1,6 +1,11 @@
 
+<div class="card">
+  <div class="card-header text-center">
+    <h5> Generate User Report </h5>
+    
+  </div>
+  <div class="card-body">
 
-<div >
   <form [formGroup]="reportForm" (ngSubmit)="generateReport()">
   
     @if(!!userValue && userValue.typ!=normalUserType)
@@ -28,8 +33,10 @@
 
 
     <div class="form-group" style="margin-top: 1ch;">
-      <button type="submit" class="btn btn-primary">save</button>
+      <button type="submit" class="btn btn-primary" [disabled]="reportForm.value.fromDate==null || reportForm.value.toDate==null">Generate</button>
 
     </div>
   </form>
 </div>
+</div>
+

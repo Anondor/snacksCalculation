@@ -19,7 +19,7 @@ export class AddMoneyComponent implements OnInit {
   constructor(private router: Router, private authenticationService: AuthenticationService) {
     this.amountForm = new FormGroup({
       userId: new FormControl(null, Validators.required),
-      date: new FormControl(null, [Validators.required, Validators.email]),
+      date: new FormControl(null, [Validators.required]),
       amount: new FormControl(null, [Validators.required])
     });
 
@@ -40,8 +40,10 @@ export class AddMoneyComponent implements OnInit {
   }
   saveAmountData() {
     let user = this.amountForm.value;
+    console.log(user)
+    debugger
     this.authenticationService.addUserAmount(user).subscribe(res => {
-      this.router.navigate(['features/dashboard']);
+      //this.router.navigate(['features/dashboard']);
 
     })
 

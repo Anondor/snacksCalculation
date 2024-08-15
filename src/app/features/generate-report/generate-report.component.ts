@@ -18,7 +18,7 @@ export class GenerateReportComponent implements OnInit{
   userList: any = []
   todaysDate: any = new Date();
   constructor(private authenticationService:AuthenticationService,private router:Router)
-{ this.getLoggedUser();
+{  this.getLoggedUser();
       this.reportForm = new FormGroup({
       userId:new FormControl(null,Validators.required),
       fromDate:new FormControl(null,[Validators.required,Validators.email]),
@@ -28,6 +28,7 @@ export class GenerateReportComponent implements OnInit{
   ngOnInit(): void {
     const today=new Date();
     this.maxDate=today.toISOString().split('T')[0];
+
     this.reportForm.value.toDate=this.maxDate;
          this.getAllUserList()
         
@@ -50,11 +51,12 @@ export class GenerateReportComponent implements OnInit{
       model.fromDate=temp;
     }
     if(model.userId==null)model.userId=this.userValue.Id
+   
     let fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
     this.authenticationService.getGeneratedFile(model.fromDate,model.toDate,model.userId).subscribe(res=>{
       const fileName = `MonthlyReport_${this.todaysDate}.xlsx`;
       this.authenticationService.DownloadFile(res, fileName, fileType);
-       this.router.navigate(['features/dashboard']);
+       
 
     })
 

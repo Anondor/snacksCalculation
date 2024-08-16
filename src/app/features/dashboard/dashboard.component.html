@@ -1,17 +1,29 @@
-<div>
-    <div class="container mt-5">
-        <div class="form-group">
-            <label for="monthYearPicker">Select Month and Year:</label>
-            <input type="text" id="monthYearPicker" bsDatepicker [bsConfig]="bsConfig" [(ngModel)]="selectedMonth">
-            <button class="btn btn-primary" style="margin-left: 1ch;" (click)="getSelectedMonthYear()">Load</button>
-            <button class="btn btn-primary" style="margin-left: 1ch;" (click)="exportExcel()">Export</button>
+<div class="card">
+    <div class="card-header text-center">
+        <div style="margin-bottom: 1cap;">
+            <div class="form-group">
+                <label for="monthYearPicker">Select Month and Year: </label>
+                <input type="text" style="margin-left: 1ch;" id="monthYearPicker" bsDatepicker [bsConfig]="bsConfig" [(ngModel)]="selectedMonth">
+                <button class="btn btn-primary" style="margin-left: 1ch;" (click)="getSelectedMonthYear()">Load</button>
+                <button class="btn btn-primary" style="margin-left: 1ch;" (click)="exportExcel()">Export</button>
+            </div>
         </div>
+      
     </div>
-    <table>
+    <div class="card-body">
+  
+    <table class="table">
         <thead>
             <th scope="col"> Date</th>
             @for (item of userList; track item.id) {
-            <th scope="col"> {{ item.name }}</th>
+                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
+                {
+                    <th scope="col" style="text-align: center;"> {{ item.name }}</th>
+                }
+                @else {
+                    <th scope="col"> {{ item.name }}</th>
+                }
+            
             }
             <th scope="col"> Item</th>
         </thead>
@@ -73,9 +85,9 @@
                 <td scope="col"> </td>
             </tr>
             <tr>
-                <td scope="col"><strong> Total Balance</strong> : </td>
+                <td scope="col"> <strong> Total Balance</strong> : </td>
                 @for (item of userList; track item.id) {
-                @if (userValue.typ!=normalUserType)
+                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
                 {
 
                 <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id]
@@ -89,9 +101,9 @@
             </tr>
 
             <tr>
-                <td scope="col"><strong> Remaining balance</strong> : </td>
+                <td scope="col"> <strong> Remaining balance</strong> : </td>
                 @for (item of userList; track item.id) {
-                @if (userValue.typ!=normalUserType)
+                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
                 {
 
                 <td scope="col" style="text-align: center;"> {{ mapUserAmountList[item.id] }}</td>
@@ -101,11 +113,17 @@
 
                 }
                 <td scope="col"> </td>
+         
             </tr>
 
 
         </tbody>
     </table>
+    @if (userValue.typ!=normalUserType && selectMonth==todaysMonth && selectYear==todaysYear)
+    {
+        <button class="btn btn-primary" (click)="saveData()">Save</button>
+    }
 
-    <button class="btn btn-primary" (click)="saveData()">Save</button>
+    
 </div>
+

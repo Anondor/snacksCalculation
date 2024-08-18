@@ -3,7 +3,8 @@ import { AuthenticationService } from '../../../authentication/authentication.se
 import { AccountService } from '../account.service';
 import { AlertService } from '../../../Shared/alert.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { SharedService } from '../../../Shared/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -17,11 +18,24 @@ export class LoginComponent implements OnInit{
   error: string = "";
   ngOnInit(): void {
 
+    SharedService.logUser = undefined;
+    this.authenticationService.logout()
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        SharedService.logUser = this.authenticationService.getLoggedUser();
+      }
+    });
+
   }
+  get logUser(): any {
+    return SharedService.logUser;
+  }
+
 
  
   constructor(
     private accountService: AccountService,
+    private authenticationService: AuthenticationService,
     private alertService:AlertService,
     private router: Router) {
   

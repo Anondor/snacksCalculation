@@ -107,6 +107,7 @@ export class DashboardComponent implements OnInit {
       this.userList = res.result;
       this.userList.forEach((element: any) => {
         this.mapUserTotalCostList[element.id] = 0;
+        this.mapUserAmountList[element.id]=0;
 
       });
 
@@ -164,6 +165,7 @@ export class DashboardComponent implements OnInit {
   getUserAmount() {
     this.authenticationService.getUserAmount().subscribe(res => {
       this.userTotalAmount = res.result;
+
       this.userTotalAmount.forEach((element: any) => {
         this.mapUserAmountList[element.userId] = element.totalAmount;
 

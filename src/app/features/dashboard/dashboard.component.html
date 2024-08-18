@@ -25,7 +25,14 @@
                 }
             
             }
-            <th scope="col"> Item</th>
+            @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
+            {
+                <th scope="col" style="text-align: center;"> Item</th>
+            }
+            @else {
+                <th scope="col"> Item</th>
+            }
+            
         </thead>
         <tbody>
 
@@ -37,7 +44,7 @@
                 <td scope="col">
 
                     @if (userValue.typ!=normalUserType && selectMonth==todaysMonth && selectYear==todaysYear) {
-                    <input class="input-sm" id="{{user.id}}" [(ngModel)]="maptest[item][user.id]"
+                    <input class="input-sm" id="{{user.id}}" [(ngModel)]="maptest[item][user.id]" type="number"
                         (blur)="onBlurEvent($event, item)" placeholder="0" style="text-align: center;">
 
                     }
@@ -121,9 +128,11 @@
     </table>
     @if (userValue.typ!=normalUserType && selectMonth==todaysMonth && selectYear==todaysYear)
     {
-        <button class="btn btn-primary" (click)="saveData()">Save</button>
+        <button class="btn btn-primary" (click)="saveData()" [disabled]="userCostInfoList.length==0">Save</button>
     }
 
     
 </div>
+
+
 

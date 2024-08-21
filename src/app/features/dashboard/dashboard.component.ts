@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { UserCostInfoModel } from '../../authentication/models/user.model';
 import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { AlertService } from '../../Shared/alert.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -43,7 +44,7 @@ export class DashboardComponent implements OnInit {
   userTotalAmount: any = [];
   userTotalCost: any = [];
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
+  constructor(private authenticationService: AuthenticationService, private router: Router, private alertService:AlertService) {
     this.bsConfig = {
       dateInputFormat: 'MM/YYYY',
       minMode: 'month',
@@ -267,6 +268,9 @@ export class DashboardComponent implements OnInit {
     });
 
     this.authenticationService.addUserCost(this.userCostInfoList).subscribe(res => {
+      
+      this.alertService.alert('alert-success', 'Amount save successfully');
+      
       this.ngOnInit()
     })
 

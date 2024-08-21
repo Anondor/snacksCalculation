@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../authentication/authentication.service';
+import { AlertService } from '../../Shared/alert.service';
 
 @Component({
   selector: 'app-new-user',
@@ -17,12 +18,14 @@ export class NewUserComponent {
     { id:2, type:"User"}
 
   ]
-   constructor(private router:Router,private authenticationService:AuthenticationService){ 
+   constructor(private router:Router,
+    private authenticationService:AuthenticationService, 
+    private alertService:AlertService,){ 
     this.signupForm = new FormGroup({
       //id:new FormControl(),
       name:new FormControl(null,Validators.required),
       email:new FormControl(null,[Validators.required,Validators.email]),
-      phone:new FormControl(null,[Validators.required]),
+      phone:new FormControl(null,[Validators.required, Validators.pattern("[0-9 ]{11}")]),
       password:new FormControl(null,Validators.required),
       userType:new FormControl()
 
@@ -36,8 +39,20 @@ export class NewUserComponent {
    signupdata()
    {
      let user=this.signupForm.value;
+  
      this.authenticationService.addUser(user).subscribe(res=>{
+      if(res.isError==true)
+      {
+        this.alertService.alert("alert-error",res.message)
+       // this.alertService.alert('alert-success', 'Amount save successfully');
+      }
+      else{
+        this.alertService.alert("alert-success",res.message)
         this.router.navigate(['features/dashboard']);
+
+      }
+      
+        
 
      })
  

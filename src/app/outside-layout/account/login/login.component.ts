@@ -5,6 +5,7 @@ import { AlertService } from '../../../Shared/alert.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { SharedService } from '../../../Shared/shared.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit{
         SharedService.logUser = this.authenticationService.getLoggedUser();
       }
     });
+    this.alertService.clear();
 
   }
   get logUser(): any {
@@ -50,24 +52,25 @@ export class LoginComponent implements OnInit{
   loginUser(){
 
     const user = this.loginForm.value;
-    this.accountService.loginUser(user).subscribe({
+    this.accountService.loginUser(user).pipe(first()).subscribe({
 			next: x => {
-
+        
+        
+        
 				if (x.result) {
 					localStorage.setItem('access_token', x.result.token);
 					if (this.accountService.isNavigatingToSuperUnit()) {
-           
 						this.router.navigate(["features/dashboard"]);
 					} else {
 						this.router.navigate(['/']);
 					}
 				} else {
 					this.router.navigate(['/']);
-					this.alertService.tosterDanger(x.message);
+					//this.alertService.error(x.message);
 				}
 			},
 			error: err => {
-				this.alertService.tosterDanger("Something wrong. Please try again later.");
+				//this.alertService.error("Something wrong. Please try again later.");
 			}
 		});
 	}

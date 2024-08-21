@@ -3,11 +3,12 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { tokenGetter } from '../../app.config';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { SharedService } from '../../Shared/shared.service';
+import { AlertComponent } from "../../Shared/alert/alert.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, AlertComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

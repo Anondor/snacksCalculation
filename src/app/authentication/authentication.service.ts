@@ -71,7 +71,7 @@ export class AuthenticationService {
   getAllUser()
   {
     
-    return this.http.get<any>(`https://localhost:7206/api/User/UserList`);
+    return this.http.get<any>(`https://localhost:7206/api/User/userList`);
   }
   getMonthlyCost(fromDate:string,toDate:string)
   {

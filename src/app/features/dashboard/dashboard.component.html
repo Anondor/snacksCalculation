@@ -1,138 +1,148 @@
-<div class="card">
-    <div class="card-header text-center">
-        <div style="margin-bottom: 1cap;">
-            <div class="form-group">
-                <label for="monthYearPicker">Select Month and Year: </label>
-                <input type="text" style="margin-left: 1ch;" id="monthYearPicker" bsDatepicker [bsConfig]="bsConfig" [(ngModel)]="selectedMonth">
-                <button class="btn btn-primary" style="margin-left: 1ch;" (click)="getSelectedMonthYear()">Load</button>
-                <button class="btn btn-primary" style="margin-left: 1ch;" (click)="exportExcel()">Export</button>
-            </div>
-        </div>
-      
-    </div>
-    <div class="card-body">
-  
-    <table class="table">
-        <thead>
-            <th scope="col"> Date</th>
-            @for (item of userList; track item.id) {
-                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
-                {
-                    <th scope="col" style="text-align: center;"> {{ item.name }}</th>
-                }
-                @else {
-                    <th scope="col"> {{ item.name }}</th>
-                }
-            
-            }
-            @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
-            {
-                <th scope="col" style="text-align: center;"> Item</th>
-            }
-            @else {
-                <th scope="col"> Item</th>
-            }
-            
-        </thead>
-        <tbody>
 
-            @for (item of dateList; track item.id) {
-            <tr class="">
-                <td scope="col"> {{ item }}</td>
-                @for(user of userList; track user.id )
-                {
-                <td scope="col">
-
-                    @if (userValue.typ!=normalUserType && selectMonth==todaysMonth && selectYear==todaysYear) {
-                    <input class="input-sm" id="{{user.id}}" [(ngModel)]="maptest[item][user.id]" type="number"
-                        (blur)="onBlurEvent($event, item)" placeholder="0" style="text-align: center;">
-
-                    }
-                    @else {
-                    @if(!!maptest[item][user.id])
-                    {
-                    {{maptest[item][user.id]}}
-                    }
-                    @else
-                    {0
-                    }
-                    }
-                </td>
-
-                }
-                <td scope="col">
-                    @if (userValue.typ!=normalUserType && selectMonth==todaysMonth && selectYear==todaysYear) {
-                    <input [(ngModel)]="mapItemList[item]" (blur)="onBlurItemEvent($event, item)"
-                        placeholder="Enter Items" style="text-align: center;">
-                    }
-                    @else
-                    {
-                    @if(!!mapItemList[item])
-                    {
-                    {{mapItemList[item]}}
-                    }
-
-                    }
-                </td>
-            </tr>
-            }
-            <tr>
-
-                <td scope="col"> <strong> Total Cost</strong> : </td>
-                @for (item of userList; track item.id) {
-                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
-                {
-
-                <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id] }}</td>
-                }@else {
-                <td scope="col"> {{ mapUserTotalCostList[item.id] }}</td>
-                }
-
-                }
-                <td scope="col"> </td>
-            </tr>
-            <tr>
-                <td scope="col"> <strong> Total Balance</strong> : </td>
-                @for (item of userList; track item.id) {
-                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
-                {
-
-                <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id]
-                    +mapUserAmountList[item.id]}}</td>
-                }@else {
-                <td scope="col"> {{ mapUserTotalCostList[item.id] +mapUserAmountList[item.id]}}</td>
-                }
-
-                }
-                <td scope="col"> </td>
-            </tr>
-
-            <tr>
-                <td scope="col"> <strong> Remaining balance</strong> : </td>
-                @for (item of userList; track item.id) {
-                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
-                {
-
-                <td scope="col" style="text-align: center;"> {{ mapUserAmountList[item.id] }}</td>
-                }@else {
-                <td scope="col"> {{ mapUserAmountList[item.id] }}</td>
-                }
-
-                }
-                <td scope="col"> </td>
-         
-            </tr>
-
-
-        </tbody>
-    </table>
-    @if (userValue.typ!=normalUserType && selectMonth==todaysMonth && selectYear==todaysYear)
-    {
-        <button class="btn btn-primary" (click)="saveData()" [disabled]="userCostInfoList.length==0">Save</button>
-    }
-
+<div class="row">
     
-</div>
+        <div class="card">
+
+            <div class="card-header text-center">
+                <div style="margin-bottom: 1cap; margin-top: 1cap;">
+                    <div class="form-group">
+                        <label for="monthYearPicker">Select Month and Year: </label>
+                        <input type="text" style="margin-left: 1ch;" id="monthYearPicker" bsDatepicker
+                            [bsConfig]="bsConfig" [(ngModel)]="selectedMonth">
+                        <button class="btn btn-primary" style="margin-left: 1ch;"
+                            (click)="getSelectedMonthYear()">Load</button>
+                        <button class="btn btn-primary" style="margin-left: 1ch;"
+                            (click)="exportExcel()">Export</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-body">
+
+                <table class="table">
+                    <thead>
+                        <th scope="col"> Date</th>
+                        @for (item of userList; track item.id) {
+                        @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
+                        {
+                        <th scope="col" style="text-align: center;"> {{ item.name }}</th>
+                        }
+                        @else {
+                        <th scope="col"> {{ item.name }}</th>
+                        }
+
+                        }
+                        @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
+                        {
+                        <th scope="col" style="text-align: center;"> Item</th>
+                        }
+                        @else {
+                        <th scope="col"> Item</th>
+                        }
+
+                    </thead>
+                    <tbody>
+
+                        @for (item of dateList; track item.id) {
+                        <tr class="">
+                            <td scope="col"> {{ item }}</td>
+                            @for(user of userList; track user.id )
+                            {
+                            <td scope="col">
+
+                                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth &&
+                                selectYear==todaysYear) {
+                                <input class="input-sm" id="{{user.id}}" [(ngModel)]="maptest[item][user.id]"
+                                    type="number" (blur)="onBlurEvent($event, item)" placeholder="0"
+                                    style="text-align: center;">
+
+                                }
+                                @else {
+                                @if(!!maptest[item][user.id])
+                                {
+                                {{maptest[item][user.id]}}
+                                }
+                                @else
+                                {0
+                                }
+                                }
+                            </td>
+
+                            }
+                            <td scope="col">
+                                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth &&
+                                selectYear==todaysYear) {
+                                <input [(ngModel)]="mapItemList[item]" (blur)="onBlurItemEvent($event, item)"
+                                    placeholder="Enter Items" style="text-align: center;">
+                                }
+                                @else
+                                {
+                                @if(!!mapItemList[item])
+                                {
+                                {{mapItemList[item]}}
+                                }
+
+                                }
+                            </td>
+                        </tr>
+                        }
+                        <tr>
+
+                            <td scope="col"> <strong> Total Cost</strong> : </td>
+                            @for (item of userList; track item.id) {
+                            @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
+                            {
+
+                            <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id] }}</td>
+                            }@else {
+                            <td scope="col"> {{ mapUserTotalCostList[item.id] }}</td>
+                            }
+
+                            }
+                            <td scope="col"> </td>
+                        </tr>
+                        <tr>
+                            <td scope="col"> <strong> Total Balance</strong> : </td>
+                            @for (item of userList; track item.id) {
+                            @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
+                            {
+
+                            <td scope="col" style="text-align: center;"> {{ mapUserTotalCostList[item.id]
+                                +mapUserAmountList[item.id]}}</td>
+                            }@else {
+                            <td scope="col"> {{ mapUserTotalCostList[item.id] +mapUserAmountList[item.id]}}</td>
+                            }
+
+                            }
+                            <td scope="col"> </td>
+                        </tr>
+
+                        <tr>
+                            <td scope="col"> <strong> Remaining balance</strong> : </td>
+                            @for (item of userList; track item.id) {
+                            @if (userValue.typ!=normalUserType && selectMonth==todaysMonth)
+                            {
+
+                            <td scope="col" style="text-align: center;"> {{ mapUserAmountList[item.id] }}</td>
+                            }@else {
+                            <td scope="col"> {{ mapUserAmountList[item.id] }}</td>
+                            }
+
+                            }
+                            <td scope="col"> </td>
+
+                        </tr>
 
 
+                    </tbody>
+                </table>
+                @if (userValue.typ!=normalUserType && selectMonth==todaysMonth && selectYear==todaysYear)
+                {
+                <button class="btn btn-primary" (click)="saveData()" style="float: ri;">Save</button>
+                }
 
+
+            </div>
+
+        </div>
+    </div>

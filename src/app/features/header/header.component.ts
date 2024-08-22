@@ -36,6 +36,10 @@ export class HeaderComponent {
   addNewUser() {
     this.router.navigate(["features/add-new-user"])
   }
+  getUserBalanceSummary()
+  {
+    this.router.navigate(["features/balance-summary"])
+  }
   generateReport() {
     this.router.navigate(["features/generate-report"])
   }

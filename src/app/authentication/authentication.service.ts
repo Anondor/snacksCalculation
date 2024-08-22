@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 //import { Router } from '@angular/router';
-import { Observable, map } from 'rxjs';
-import { User } from './models/user.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 
@@ -79,13 +77,11 @@ export class AuthenticationService {
   }
   getExportFile(fromDate:string,toDate:string)
   {
-      // return this.http.get<any>(`https://localhost:7206/api/User/exportReport?fromDate=${fromDate}&toDate=${toDate}`);
       return this.http.get(`https://localhost:7206/api/User/exportReport?fromDate=${fromDate}&toDate=${toDate}`,{responseType: 'blob'});
   }
 
   getGeneratedFile(fromDate:string,toDate:string,userId:string)
   {
-      // return this.http.get<any>(`https://localhost:7206/api/User/exportReport?fromDate=${fromDate}&toDate=${toDate}`);
 
       return this.http.get(`https://localhost:7206/api/User/exportGeneratedReport?fromDate=${fromDate}&toDate=${toDate}&userId=${userId}`,{responseType: 'blob'});
   }

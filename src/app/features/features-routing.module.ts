@@ -6,11 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { RoleConstants } from '../authentication/models/user.model';
 import { NewUserComponent } from './new-user/new-user.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
+import { BalanceSummaryComponent } from './balance-summary/balance-summary.component';
 
 const routes: Routes = [
   
   {path:"dashboard",canActivate: [AuthenticationGuard],component:DashboardComponent},
   {path:"generate-report",canActivate: [AuthenticationGuard],component:GenerateReportComponent},
+  {path:"balance-summary",canActivate: [AuthenticationGuard],component:BalanceSummaryComponent},
   {
     path: 'add-balance',component: AddMoneyComponent,canActivate: [AuthenticationGuard],
     data: { roles: [RoleConstants.SuperAdmin,RoleConstants.Admin] }

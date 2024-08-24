@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 //import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -84,6 +85,11 @@ export class AuthenticationService {
   {
 
       return this.http.get(`https://localhost:7206/api/User/exportGeneratedReport?fromDate=${fromDate}&toDate=${toDate}&userId=${userId}`,{responseType: 'blob'});
+  }
+  getUserAmountById(fromDate:string,toDate:string,userId:string):Observable<any>
+  {
+
+      return this.http.get(`https://localhost:7206/api/UserCost/getUserAmounById?fromDate=${fromDate}&toDate=${toDate}&userId=${userId}`);
   }
   getUserAmount()
   {

@@ -1,46 +1,89 @@
+<div>
+
 
 <div class="card">
-    <div class="card-header text-center">
-      <h5> Balance Summary </h5>
-      
-    </div>
-    <div class="card-body">
- 
+  <div class="card-header text-center">
+    <h5> Balance Summary </h5>
+
+  </div>
+  <div class="card-body">
+
 
     <form [formGroup]="reportForm" (ngSubmit)="loadBalance()">
-    
-       
+
+
 
       @if(!!userValue && userValue.typ!=normalUserType)
       {
-        <div class="form-group">
-          <label>Choose User</label>
-        <select  class="form-select" aria-label="Default select example" formControlName="userId">
+      <div class="form-group">
+        <label>Choose User</label>
+        <select class="form-select" aria-label="Default select example" formControlName="userId">
           @for (item of userList; track item.id) {
-            <option value="{{ item.id }}">{{ item.name }}</option>
+          <option value="{{ item.id }}">{{ item.name }}</option>
           }
-        </select> 
-        </div>
+        </select>
+      </div>
       }
-     
-  
+
+
       <div class="form-group">
         <label>From Date</label>
-        <input type="date"  class="form-control" [max]="maxDate"   formControlName="fromDate">
+        <input type="date" class="form-control" [max]="maxDate" formControlName="fromDate">
       </div>
       <div class="form-group">
-          <label>To Date</label>
-          <input type="date"  class="form-control" [max]="maxDate"    formControlName="toDate">
-        </div>
-  
-  
-  
+        <label>To Date</label>
+        <input type="date" class="form-control" [max]="maxDate" formControlName="toDate">
+      </div>
+
+
+
       <div class="form-group" style="margin-top: 1ch;">
-        <button type="submit" class="btn btn-primary" [disabled]="reportForm.value.fromDate==null || reportForm.value.toDate==null">Load</button>
-  
+        <button type="submit" class="btn btn-primary"
+          [disabled]="reportForm.value.fromDate==null || reportForm.value.toDate==null">Load</button>
+
       </div>
     </form>
   </div>
+</div>
+
+@if(!!userAccountList)
+{
+  <div class="card" style="margin-top: 2ch;">
+    <div class="card-header text-center">
+      <h5>{{userName}}'s Balance Summary </h5>
+  
+    </div>
+    <table class="table"> 
+      <thead>
+      <tr>
+      <th scope="col">#</th>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!--    @for (item of userAccountList; track item.id ;)
+    {
+    <tr>
+      <td>{{item.index}}</td><td>{{item.date}}</td>
+      <td>{{item.amount}}</td>
+    </tr>
+    
+    
+    }-->
+ 
+    <tr *ngFor="let item of userAccountList; let i = index; ">
+      <td>{{ i+1 }}</td>
+      <td>{{ item.date }}</td>
+      <td>{{ item.amount }}</td>
+    </tr>
+    </tbody>
+    </table>
+
   </div>
-  
-  
+ 
+}
+
+</div>
+
+

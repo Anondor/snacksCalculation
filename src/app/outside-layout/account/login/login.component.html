@@ -1,27 +1,25 @@
 
+<div class="card" style="margin-left: 20%; ">
+    <h4 class="card-header text-center">Login</h4>
+    <div class="card-body">
+        <form [formGroup]="loginForm"(ngSubmit)="loginUser()">
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="text" class="form-control" formControlName="phone"/>
 
-
-<div class="container" style="width: 80%; margin: auto;"> 
-    <h1 style="text-align: center;">Login Here</h1>
-    <br>
-        <form  [formGroup]="loginForm" >
-            <div class="input-group mb-3">
-                <label  class="col-sm-2 col-form-label">phone</label>
-                <div style="width: 80%;"> 
-                  <input type="text" class="form-control" formControlName="phone"/>
-                </div> 
             </div>
-            <div class="input-group mb-3">
-                <label  class="col-sm-2 col-form-label">Password</label>
-                <div style="width: 80%;"> 
-                  <input type="password" class="form-control" formControlName="password"/>
-
-                  </div>
-                  </div>
-      
-             <button type="submit" class="btn btn-primary" style="margin-left: 30%;" (click)="loginUser()" [disabled]="this.loginForm.invalid" >Login</button>
-             <button type="submit" style="margin-left: 1%;" class="btn btn-danger" (click)="this.loginForm.reset()">Cancel</button>
-    
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" formControlName="password"/>
+            </div>
+            <div>
+                <button [disabled]="this.loginForm.invalid" class="btn btn-primary">
+                    Login
+                </button>
+            </div>
         </form>
-    
     </div>
+</div>
+
+
+   

@@ -1,53 +1,33 @@
 <div class="card">
   <div class="card-header text-center">
     <h5> Add Account Balance </h5>
-    
+
   </div>
   <div class="card-body">
-  <form [formGroup]="amountForm" (ngSubmit)="saveAmountData()">
-  
-    <div class="form-group">
-        <label>User</label>
-        <ng-select id="userId" formControlName="userId" [multiple]="false" [dropdownPosition]="'bottom'" class="form-control"
-        [(ngModel)]="userText" >
-        <ng-option *ngFor="let item of userList; let i = index" [value]="item.id">{{item.name}}
-        </ng-option>
-    </ng-select>
+    <form [formGroup]="amountForm" (ngSubmit)="saveAmountData()">
 
+      <div class="form-group">
+        <label>User</label>
+        <ngx-select-dropdown [instanceId]="'dropdown_1'" tabindex="0" [multiple]="false" [(ngModel)]="singleSelect"
+          [config]="config" [options]="userList" [ngModelOptions]="{standalone: true}"></ngx-select-dropdown>
       </div>
 
-    <div class="form-group">
-      <label>Date</label>
-      <input type="date"  class="form-control" [max]="maxDate"   formControlName="date">
-    </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" class="form-control" [max]="maxDate" formControlName="date">
+      </div>
 
-    <div class="form-group">
-      <label>Amount</label>
-      <input
-        type="number"
-        formControlName="amount"
-        class="form-control"
-      />
-    </div>
-
-
-  
-
-
-
-
-
-    <div class="form-group" style="margin-top: 1ch;">
-      <button type="submit" class="btn btn-primary" [disabled]="!amountForm.valid">Save</button>
-      <button
-        type="button"
-        (click)="onReset()"
-        class="btn btn-dark float-right"
-        style=" margin-left: 1ch;"
-      >
-        Reset
-      </button>
-    </div>
-  </form>
-</div>
+      <div class="form-group">
+        <label>Amount</label>
+        <input type="number" formControlName="amount" class="form-control" />
+      </div>
+      <div class="form-group" style="margin-top: 1ch;">
+        <button type="submit" class="btn btn-primary"
+          [disabled]="!amountForm.valid  || singleSelect==null">Save</button>
+        <button type="button" (click)="onReset()" class="btn btn-dark float-right" style=" margin-left: 1ch;">
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

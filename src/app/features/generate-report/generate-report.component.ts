@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { Router } from '@angular/router';
+import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-generate-report',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,SelectDropDownModule,CommonModule, FormsModule, ],
   templateUrl: './generate-report.component.html',
   styleUrl: './generate-report.component.css'
 })
@@ -17,6 +19,15 @@ export class GenerateReportComponent implements OnInit{
   maxDate?:string;
   userList: any = []
   todaysDate: any = new Date();
+  singleSelect: any = null;
+  config = {
+displayKey: "name", // if objects array passed which key to be displayed defaults to description
+search: true,
+limitTo: 0,
+height: "250px",
+enableSelectAll: true,
+};
+
   constructor(private authenticationService:AuthenticationService,private router:Router)
 {  this.getLoggedUser();
       this.reportForm = new FormGroup({
@@ -50,8 +61,17 @@ export class GenerateReportComponent implements OnInit{
       model.toDate=model.fromDate;
       model.fromDate=temp;
     }
-    if(model.userId==null)model.userId=this.userValue.Id
-   
+    debugger
+
+        if(!!this.singleSelect.id)
+          {
+            model.userId=this.singleSelect.id;
+          }
+          else
+          {
+            model.userId = this.userValue.Id;
+          }
+
     let fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
     this.authenticationService.getGeneratedFile(model.fromDate,model.toDate,model.userId).subscribe(res=>{
       const fileName = `MonthlyReport_${this.todaysDate}.xlsx`;

@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { AlertService } from '../../Shared/alert.service';
 import { CommonModule } from '@angular/common';
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 @Component({
   selector: 'app-balance-summary',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule,CommonModule],
+  imports: [ReactiveFormsModule,SelectDropDownModule, FormsModule,CommonModule],
   templateUrl: './balance-summary.component.html',
   styleUrl: './balance-summary.component.css'
 })
@@ -22,6 +23,14 @@ export class BalanceSummaryComponent {
   userAccountList: any;
   userName: string = '';
   pos:number=1;
+  singleSelect: any = null;
+  config = {
+displayKey: "name", // if objects array passed which key to be displayed defaults to description
+search: true,
+limitTo: 0,
+height: "250px",
+enableSelectAll: true,
+};
 
 
   constructor(private authenticationService: AuthenticationService,
@@ -58,7 +67,15 @@ export class BalanceSummaryComponent {
     else {
       if (model.userId == null) 
       {
-        model.userId = this.userValue.Id;
+        if(!!this.singleSelect)
+        {
+          model.userId=this.singleSelect.id;
+        }
+        else
+        {
+          model.userId = this.userValue.Id;
+        }
+        
       
       }
       var id=parseInt(model.userId);

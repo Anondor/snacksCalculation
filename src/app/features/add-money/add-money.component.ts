@@ -11,7 +11,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
 @Component({
   selector: 'app-add-money',
   standalone: true,
-  imports: [ReactiveFormsModule, NgSelectModule, CommonModule, FormsModule, SelectDropDownModule,],
+  imports: [ReactiveFormsModule, NgSelectModule, CommonModule, FormsModule, SelectDropDownModule],
   templateUrl: './add-money.component.html',
   styleUrl: './add-money.component.css'
 })

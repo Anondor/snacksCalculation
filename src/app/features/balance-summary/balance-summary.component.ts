@@ -5,11 +5,13 @@ import { AuthenticationService } from '../../authentication/authentication.servi
 import { AlertService } from '../../Shared/alert.service';
 import { CommonModule } from '@angular/common';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { ColumnMode, NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { UserBalanceModel } from '../../authentication/models/user.model';
 
 @Component({
   selector: 'app-balance-summary',
   standalone: true,
-  imports: [ReactiveFormsModule,SelectDropDownModule, FormsModule,CommonModule],
+  imports: [ReactiveFormsModule,SelectDropDownModule, FormsModule,CommonModule,NgxDatatableModule],
   templateUrl: './balance-summary.component.html',
   styleUrl: './balance-summary.component.css'
 })
@@ -31,6 +33,14 @@ limitTo: 0,
 height: "250px",
 enableSelectAll: true,
 };
+
+columns = [ { name: 'Date' },{ name: 'Sl' }, { name: 'Amount' }];
+rawEvent: any;
+contextmenuRow: any;
+contextmenuColumn: any;
+ColumnMode = ColumnMode;
+
+rows :any= []
 
 
   constructor(private authenticationService: AuthenticationService,
@@ -55,6 +65,7 @@ enableSelectAll: true,
 
     this.authenticationService.getAllUser().subscribe(res => {
       this.userList = res.result;
+    
     })
 
   }
@@ -92,6 +103,20 @@ enableSelectAll: true,
 
 
         this.userAccountList = res.result;
+        this.rows=[]
+        for(let i=0;i<res.result.length;i++)
+        {          
+            var model={
+              sl:i+1,
+              amount:this.userAccountList[i].amount,
+              date:this.userAccountList[i].date
+            }
+
+          
+          this.rows.push(model);
+        }
+
+        console.log(this.rows)
      
 
       })
@@ -100,6 +125,21 @@ enableSelectAll: true,
 
 
 
+  }
+  onTableContextMenu(contextMenuEvent:any) {
+    console.log(contextMenuEvent);
+
+    this.rawEvent = contextMenuEvent.event;
+    if (contextMenuEvent.type === 'body') {
+      this.contextmenuRow = contextMenuEvent.content;
+      this.contextmenuColumn = undefined;
+    } else {
+      this.contextmenuColumn = contextMenuEvent.content;
+      this.contextmenuRow = undefined;
+    }
+
+    contextMenuEvent.event.preventDefault();
+    contextMenuEvent.event.stopPropagation();
   }
   getLoggedUser() {
 

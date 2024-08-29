@@ -25,5 +25,10 @@ export interface User {
     amound?:number,
     item?:string
   }
-
+  export interface UserBalanceModel
+  {
+    id:number,
+    date:string,
+    amount:number,
+  }
 

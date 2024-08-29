@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-generate-report',
   standalone: true,
-  imports: [ReactiveFormsModule,SelectDropDownModule,CommonModule, FormsModule, ],
+  imports: [ReactiveFormsModule,SelectDropDownModule,CommonModule, FormsModule ],
   templateUrl: './generate-report.component.html',
   styleUrl: './generate-report.component.css'
 })

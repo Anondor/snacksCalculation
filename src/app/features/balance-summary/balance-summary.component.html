@@ -51,44 +51,37 @@
   </div>
 </div>
 
-@if(!!userAccountList)
-{
-  <div class="card" style="margin-top: 2ch;">
-    <div class="card-header text-center">
-      <h5>{{userName}}'s Balance Summary </h5>
-  
-    </div>
-    <table class="table"> 
-      <thead>
-      <tr>
-      <th scope="col">#</th>
-      <th scope="col">Date</th>
-      <th scope="col">Amount</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!--    @for (item of userAccountList; track item.id ;)
-    {
-    <tr>
-      <td>{{item.index}}</td><td>{{item.date}}</td>
-      <td>{{item.amount}}</td>
-    </tr>
-    
-    
-    }-->
- 
-    <tr *ngFor="let item of userAccountList; let i = index; ">
-      <td>{{ i+1 }}</td>
-      <td>{{ item.date }}</td>
-      <td>{{ item.amount }}</td>
-    </tr>
-    </tbody>
-    </table>
 
-  </div>
- 
-}
 
 </div>
 
+@if(rows.length){
 
+<div class="card" style="margin-top: 2ch;">
+  <div class="card-header text-center">
+    <h5>{{userName}}'s Balance Summary </h5>
+
+  </div>
+  <div class="card-body">
+    <ngx-datatable
+        class="material"
+        [rows]="rows"
+      
+        [columnMode]="ColumnMode.force"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        rowHeight="auto"
+        (tableContextmenu)="onTableContextMenu($event)"
+    
+      >
+      <ngx-datatable-column name="Sl" [width]="80"> </ngx-datatable-column>
+      <ngx-datatable-column name="Date" [width]="300"></ngx-datatable-column>
+      <ngx-datatable-column name="Amount"></ngx-datatable-column>
+     
+    </ngx-datatable>
+
+  </div> 
+
+
+  </div>
+}

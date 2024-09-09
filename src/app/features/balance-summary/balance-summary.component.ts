@@ -73,7 +73,7 @@ rows :any= []
     
     let model = this.reportForm.value;
     if (model.fromDate > model.toDate) {
-      this.alertService.alert('alert-warning', 'from date must be smaller or equal to toDate');
+      this.alertService.alert('alert-warning', 'From date must be smaller or equal to toDate');
     }
     else {
       if (model.userId == null) 

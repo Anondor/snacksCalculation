@@ -44,7 +44,8 @@ export class DashboardComponent implements OnInit {
   userTotalAmount: any = [];
   userTotalCost: any = [];
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private alertService:AlertService) {
+  constructor(private authenticationService: AuthenticationService, private router: Router, 
+    private alertService:AlertService) {
     this.bsConfig = {
       dateInputFormat: 'MM/YYYY',
       minMode: 'month',
@@ -55,11 +56,26 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.dateList=[];
+   this.initialize()
     this.getAllUserList()
     this.getUserAmount();
     this.getDateList();
     this.getLoggedUser();
+  }
+  initialize()
+  {
+    this.userList=[];
+    this.dateList=[];
+    this.changeItemList = [];
+    this.changeCostList = [];
+    this.userCostInfoList = [];
+    this.mapUserTotalCostList = {}; 
+    this.mapsetValueChaneList={};
+    this.maptest={};
+    this.mapItemList={};
+    this.mapUserAmountList={};  
+    this.userTotalAmount=[] ;
+    this.userTotalCost=[];
   }
   getSelectedMonthYear()
   {
@@ -266,15 +282,22 @@ export class DashboardComponent implements OnInit {
       }
 
     });
-
-    this.authenticationService.addUserCost(this.userCostInfoList).subscribe(res => {
-      
-      this.alertService.alert('alert-success', 'Amount save successfully');
-      
+    if(!this.userCostInfoList.length)
+    {
+      this.alertService.alert('alert-warning', 'Set cost atleast one user.');
       this.ngOnInit()
-    })
+    }
+    else{
+      this.authenticationService.addUserCost(this.userCostInfoList).subscribe(res => {
+      
+        this.alertService.alert('alert-success', 'Amount save successfully');
+      
+        this.ngOnInit()
+        
+       
+      })
 
-    
+    }  
   }
   getLoggedUser() {
 

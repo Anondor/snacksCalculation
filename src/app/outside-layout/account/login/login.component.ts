@@ -10,11 +10,11 @@ import { first } from 'rxjs';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: string = "";
   ngOnInit(): void {
@@ -34,47 +34,51 @@ export class LoginComponent implements OnInit{
   }
 
 
- 
+
   constructor(
     private accountService: AccountService,
     private authenticationService: AuthenticationService,
-    private alertService:AlertService,
+    private alertService: AlertService,
     private router: Router) {
-  
-      this.loginForm = new FormGroup({
-        phone: new FormControl(null, Validators.required),
-        password: new FormControl(null, Validators.required)
 
-  });
-}
+    this.loginForm = new FormGroup({
+      phone: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required)
+
+    });
+  }
 
 
-  loginUser(){
+  loginUser() {
 
     const user = this.loginForm.value;
-    this.accountService.loginUser(user).pipe(first()).subscribe({
-			next: x => {
-        
-        
-        
-				if (x.result) {
-					localStorage.setItem('access_token', x.result.token);
-					if (this.accountService.isNavigatingToSuperUnit()) {
-						this.router.navigate(["features/dashboard"]);
-					} else {
-						this.router.navigate(['/']);
-					}
-				} else {
-					this.router.navigate(['/']);
-					//this.alertService.error(x.message);
-				}
-			},
-			error: err => {
-				//this.alertService.error("Something wrong. Please try again later.");
-			}
-		});
-	}
-    
+    this.accountService.loginUser(user).subscribe({
+      next: x => {
+debugger
+
+
+        if (x.result) {
+          localStorage.setItem('access_token', x.result.token);
+          if (this.accountService.isNavigatingToSuperUnit()) {
+            this.router.navigate(["features/dashboard"]);
+          } else {
+            
+            this.alertService.alert('alert-error', 'Phone or password maybe wrong.');
+            this.router.navigate(['/']);
+          }
+        } else {
+          this.router.navigate(['/']);
+          this.alertService.alert('alert-error', 'Phone or password maybe wrong.');
+
+        }
+      },
+      error: err => {
+        this.alertService.alert('alert-error', 'Phone or password maybe wrong.');
+
+      }
+    });
+  }
+
 
 
 

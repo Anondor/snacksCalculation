@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../authentication/authentication.servi
 import { NgSelectModule, NgOption } from '@ng-select/ng-select';
 import { CommonModule } from '@angular/common';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { AlertService } from '../../Shared/alert.service';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class AddMoneyComponent implements OnInit {
     enableSelectAll: true,
   };
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {
+  constructor(private router: Router, private alertService: AlertService,
+    private authenticationService: AuthenticationService) {
     this.amountForm = new FormGroup({
       userId: new FormControl(null),
       date: new FormControl(null, [Validators.required]),
@@ -60,6 +62,8 @@ export class AddMoneyComponent implements OnInit {
 
     this.authenticationService.addUserAmount(user).subscribe(res => {
       //this.router.navigate(['features/dashboard']);
+      this.alertService.alert("alert-success","Amount Save Successfully.")
+      
 
     })
 

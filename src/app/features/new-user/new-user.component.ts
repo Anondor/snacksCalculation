@@ -44,10 +44,9 @@ export class NewUserComponent {
       if(res.isError==true)
       {
         this.alertService.alert("alert-error",res.message)
-       // this.alertService.alert('alert-success', 'Amount save successfully');
       }
       else{
-        this.alertService.alert("alert-success",res.message)
+        this.alertService.alert("alert-success","Successfully create a new user.")
         this.router.navigate(['features/dashboard']);
 
       }

@@ -1,0 +1,11 @@
+.custom-scroll {
+    max-height: 600px;      
+    overflow-y: auto;       
+  }
+  
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #f8f9fa; /* Sticky header background */
+  }
